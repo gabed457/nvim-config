@@ -379,11 +379,12 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          file_ignore_patterns = { 'node_modules' },
+          -- mappings = {
+          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          -- },
+        },
         -- pickers = {}
         extensions = {
           ['ui-select'] = {
@@ -950,4 +951,20 @@ require('lazy').setup({
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=2 sts=2
+
+-- Function to load all Lua files from the plugins directory
+local function load_plugins_from_dir()
+  local plugins_dir = vim.fn.stdpath 'config' .. '/lua/plugins/'
+  local files = vim.fn.globpath(plugins_dir, '*.lua', false, true)
+
+  for _, file in ipairs(files) do
+    local plugin = file:match '^.+/(.+)%.lua$'
+    if plugin then
+      require('plugins.' .. plugin)
+    end
+  end
+end
+
+-- Call the function to load plugins
+load_plugins_from_dir()
