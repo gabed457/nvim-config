@@ -380,7 +380,7 @@ require('lazy').setup({
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
-          file_ignore_patterns = { 'node_modules' },
+          file_ignore_patterns = { 'node_modules', 'dist', 'package-lock.json' },
           -- mappings = {
           --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           -- },
@@ -701,6 +701,8 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
+        javascript = { 'biome' },
+        typescript = { 'biome' },
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
     },
