@@ -1005,6 +1005,150 @@ require('lazy').setup({
     end,
   },
 
+  -- GitHub Copilot Chat - Full agent and chat support
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      'github/copilot.vim',
+      'nvim-lua/plenary.nvim',
+    },
+    build = 'make tiktoken', -- Required for token management
+    event = 'VeryLazy',
+    opts = {
+      -- Configure the chat window
+      window = {
+        layout = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
+        width = 0.5, -- fractional width of parent, or absolute width in columns when > 1
+        height = 0.5, -- fractional height of parent, or absolute height in rows when > 1
+        relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
+        border = 'rounded', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
+        row = nil, -- row position of the window, default is centered
+        col = nil, -- column position of the window, default is centered
+        title = 'Copilot Chat', -- title of chat window
+        footer = nil, -- footer of chat window
+        zindex = 1, -- determines if window is on top or below other floating windows
+      },
+      -- Configure chat behavior
+      question_header = '## User ',
+      answer_header = '## Copilot ',
+      error_header = '## Error ',
+      separator = ' ', -- separator to use in chat
+      show_folds = true, -- shows folds for sections in chat
+      show_help = true, -- shows help message as virtual lines when waiting for user input
+      auto_follow_cursor = true, -- auto-follow cursor in chat
+      auto_insert_mode = false, -- automatically enter insert mode when opening window and if auto follow cursor is enabled on new prompt
+      clear_chat_on_new_prompt = false, -- clears chat on every new prompt
+      context = nil, -- default context to use, 'buffers', 'buffer' or none (can be specified manually in prompt via @).
+      history_path = vim.fn.stdpath('data') .. '/copilotchat_history', -- default path to stored history
+      callback = nil, -- callback to use when ask response is received
+      -- default selection (visual or line) - will be set in config function
+      selection = nil,
+      -- default prompts - will be set in config function
+      prompts = {},
+    },
+    config = function(_, opts)
+      -- Set up proper selection and prompts after plugin is loaded
+      opts.selection = function(source)
+        return require('CopilotChat.select').visual(source) or require('CopilotChat.select').line(source)
+      end
+      
+      opts.prompts = {
+        Explain = {
+          prompt = '/COPILOT_EXPLAIN Write an explanation for the active selection as paragraphs of text.',
+        },
+        Review = {
+          prompt = '/COPILOT_REVIEW Review the selected code.',
+          callback = function(response, source)
+            -- see config.lua for implementation
+          end,
+        },
+        Fix = {
+          prompt = '/COPILOT_GENERATE There is a problem in this code. Rewrite the code to show it with the bug fixed.',
+        },
+        Optimize = {
+          prompt = '/COPILOT_GENERATE Optimize the selected code to improve performance and readability.',
+        },
+        Docs = {
+          prompt = '/COPILOT_GENERATE Please add documentation comment for the selection.',
+        },
+        Tests = {
+          prompt = '/COPILOT_GENERATE Please generate tests for my code.',
+        },
+        FixDiagnostic = {
+          prompt = 'Please assist with the following diagnostic issue in file:',
+          selection = require('CopilotChat.select').diagnostics,
+        },
+        Commit = {
+          prompt = 'Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.',
+          selection = require('CopilotChat.select').gitdiff,
+        },
+        CommitStaged = {
+          prompt = 'Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.',
+          selection = function(source)
+            return require('CopilotChat.select').gitdiff(source, true)
+          end,
+        },
+      }
+      
+      require('CopilotChat').setup(opts)
+      
+      -- Setup keymaps for CopilotChat
+      vim.keymap.set({'n', 'v'}, '<leader>gct', '<cmd>CopilotChatToggle<cr>', {
+        desc = '[G]ithub [C]opilot Chat [T]oggle'
+      })
+      
+      vim.keymap.set({'n', 'v'}, '<leader>gce', '<cmd>CopilotChatExplain<cr>', {
+        desc = '[G]ithub [C]opilot Chat [E]xplain'
+      })
+      
+      vim.keymap.set({'n', 'v'}, '<leader>gcr', '<cmd>CopilotChatReview<cr>', {
+        desc = '[G]ithub [C]opilot Chat [R]eview'
+      })
+      
+      vim.keymap.set({'n', 'v'}, '<leader>gcf', '<cmd>CopilotChatFix<cr>', {
+        desc = '[G]ithub [C]opilot Chat [F]ix'
+      })
+      
+      vim.keymap.set({'n', 'v'}, '<leader>gco', '<cmd>CopilotChatOptimize<cr>', {
+        desc = '[G]ithub [C]opilot Chat [O]ptimize'
+      })
+      
+      vim.keymap.set({'n', 'v'}, '<leader>gcd', '<cmd>CopilotChatDocs<cr>', {
+        desc = '[G]ithub [C]opilot Chat [D]ocs'
+      })
+      
+      vim.keymap.set({'n', 'v'}, '<leader>gcts', '<cmd>CopilotChatTests<cr>', {
+        desc = '[G]ithub [C]opilot Chat [T]e[s]ts'
+      })
+      
+      vim.keymap.set('n', '<leader>gcm', '<cmd>CopilotChatModels<cr>', {
+        desc = '[G]ithub [C]opilot Chat [M]odels'
+      })
+      
+      vim.keymap.set('n', '<leader>gca', '<cmd>CopilotChatAgents<cr>', {
+        desc = '[G]ithub [C]opilot Chat [A]gents'
+      })
+      
+      vim.keymap.set('n', '<leader>gcc', '<cmd>CopilotChatCommit<cr>', {
+        desc = '[G]ithub [C]opilot Chat [C]ommit message'
+      })
+      
+      vim.keymap.set('n', '<leader>gcx', '<cmd>CopilotChatFixDiagnostic<cr>', {
+        desc = '[G]ithub [C]opilot Chat Fi[x] Diagnostic'
+      })
+      
+      -- Quick chat with input
+      vim.keymap.set({'n', 'v'}, '<leader>gcq', function()
+        local input = vim.fn.input('Quick Chat: ')
+        if input ~= '' then
+          require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
+        end
+      end, {
+        desc = '[G]ithub [C]opilot Chat [Q]uick chat'
+      })
+    end,
+  },
+
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
