@@ -332,6 +332,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>g', group = '[G]itHub Copilot', mode = { 'n', 'i' } },
       },
     },
   },
@@ -945,6 +946,64 @@ require('lazy').setup({
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+
+  -- GitHub Copilot AI pair programmer
+  {
+    'github/copilot.vim',
+    event = 'InsertEnter',
+    config = function()
+      -- Disable default tab mapping to avoid conflicts with nvim-cmp
+      vim.g.copilot_no_tab_map = true
+      
+      -- Set up custom keymaps for Copilot
+      -- Accept suggestion (Insert mode)
+      vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+        expr = true,
+        replace_keycodes = false,
+        desc = 'Accept Copilot suggestion'
+      })
+      
+      -- Dismiss suggestion (Insert mode)
+      vim.keymap.set('i', '<C-]>', '<Plug>(copilot-dismiss)', {
+        desc = 'Dismiss Copilot suggestion'
+      })
+      
+      -- Leader-based keymaps (work in both Normal and Insert modes)
+      vim.keymap.set({'n', 'i'}, '<leader>gc', '<Cmd>Copilot<CR>', {
+        desc = '[G]ithub [C]opilot panel'
+      })
+      
+      vim.keymap.set({'n', 'i'}, '<leader>gd', '<Cmd>Copilot disable<CR>', {
+        desc = '[G]ithub Copilot [D]isable'
+      })
+      
+      vim.keymap.set({'n', 'i'}, '<leader>ge', '<Cmd>Copilot enable<CR>', {
+        desc = '[G]ithub Copilot [E]nable'
+      })
+      
+      -- Additional Copilot settings
+      vim.g.copilot_filetypes = {
+        ['*'] = false,
+        javascript = true,
+        typescript = true,
+        javascriptreact = true,
+        typescriptreact = true,
+        lua = true,
+        python = true,
+        rust = true,
+        go = true,
+        java = true,
+        c = true,
+        cpp = true,
+        html = true,
+        css = true,
+        scss = true,
+        json = true,
+        yaml = true,
+        markdown = true,
+      }
+    end,
+  },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
