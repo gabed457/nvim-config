@@ -1,20 +1,21 @@
-# kickstart.nvim
+# nvim-config
 
 ## Introduction
 
-A starting point for Neovim that is:
+A personal Neovim configuration based on kickstart.nvim that is:
 
 * Small
-* Single-file
-* Completely Documented
+* Well-documented
+* Customizable
+* Ready to use
 
-**NOT** a Neovim distribution, but instead a starting point for your configuration.
+This is a personal Neovim configuration based on kickstart.nvim, with additional plugins and customizations.
 
 ## Installation
 
 ### Install Neovim
 
-Kickstart.nvim targets *only* the latest
+This configuration targets *only* the latest
 ['stable'](https://github.com/neovim/neovim/releases/tag/stable) and latest
 ['nightly'](https://github.com/neovim/neovim/releases/tag/nightly) of Neovim.
 If you are experiencing issues, please make sure you have the latest versions.
@@ -36,7 +37,7 @@ External Requirements:
 > See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes
 > and quick install snippets
 
-### Install Kickstart
+### Install nvim-config
 
 > **NOTE**
 > [Backup](#FAQ) your previous configuration (if any exists)
@@ -57,21 +58,21 @@ fork to your machine using one of the commands below, depending on your OS.
 
 > **NOTE**
 > Your fork's url will be something like this:
-> `https://github.com/<your_github_username>/kickstart.nvim.git`
+> `https://github.com/<your_github_username>/nvim-config.git`
 
 You likely want to remove `lazy-lock.json` from your fork's `.gitignore` file
-too - it's ignored in the kickstart repo to make maintenance easier, but it's
-[recommmended to track it in version control](https://lazy.folke.io/usage/lockfile).
+too - it's ignored in this repo to make maintenance easier, but it's
+[recommended to track it in version control](https://lazy.folke.io/usage/lockfile).
 
-#### Clone kickstart.nvim
+#### Clone nvim-config
 > **NOTE**
 > If following the recommended step above (i.e., forking the repo), replace
-> `nvim-lua` with `<your_github_username>` in the commands below
+> `gabed457` with `<your_github_username>` in the commands below
 
 <details><summary> Linux and Mac </summary>
 
 ```sh
-git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+git clone https://github.com/gabed457/nvim-config.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 ```
 
 </details>
@@ -81,13 +82,13 @@ git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HO
 If you're using `cmd.exe`:
 
 ```
-git clone https://github.com/nvim-lua/kickstart.nvim.git "%localappdata%\nvim"
+git clone https://github.com/gabed457/nvim-config.git "%localappdata%\nvim"
 ```
 
 If you're using `powershell.exe`
 
 ```
-git clone https://github.com/nvim-lua/kickstart.nvim.git "${env:LOCALAPPDATA}\nvim"
+git clone https://github.com/gabed457/nvim-config.git "${env:LOCALAPPDATA}\nvim"
 ```
 
 </details>
@@ -118,35 +119,33 @@ examples of adding popularly requested plugins.
   * You should back it up and then delete all associated files.
   * This includes your existing init.lua and the neovim files in `~/.local`
     which can be deleted with `rm -rf ~/.local/share/nvim/`
-* Can I keep my existing configuration in parallel to kickstart?
+* Can I keep my existing configuration in parallel to this config?
   * Yes! You can use [NVIM_APPNAME](https://neovim.io/doc/user/starting.html#%24NVIM_APPNAME)`=nvim-NAME`
-    to maintain multiple configurations. For example, you can install the kickstart
-    configuration in `~/.config/nvim-kickstart` and create an alias:
+    to maintain multiple configurations. For example, you can install this
+    configuration in `~/.config/nvim-gabed` and create an alias:
     ```
-    alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
+    alias nvim-gabed='NVIM_APPNAME="nvim-gabed" nvim'
     ```
-    When you run Neovim using `nvim-kickstart` alias it will use the alternative
+    When you run Neovim using `nvim-gabed` alias it will use the alternative
     config directory and the matching local directory
-    `~/.local/share/nvim-kickstart`. You can apply this approach to any Neovim
+    `~/.local/share/nvim-gabed`. You can apply this approach to any Neovim
     distribution that you would like to try out.
 * What if I want to "uninstall" this configuration:
   * See [lazy.nvim uninstall](https://github.com/folke/lazy.nvim#-uninstalling) information
-* Why is the kickstart `init.lua` a single file? Wouldn't it make sense to split it into multiple files?
-  * The main purpose of kickstart is to serve as a teaching tool and a reference
-    configuration that someone can easily use to `git clone` as a basis for their own.
-    As you progress in learning Neovim and Lua, you might consider splitting `init.lua`
-    into smaller parts. A fork of kickstart that does this while maintaining the 
+* Why is the main `init.lua` a single file? Wouldn't it make sense to split it into multiple files?
+  * This configuration is based on kickstart.nvim, which serves as a teaching tool and reference
+    configuration. The main purpose is to provide a readable foundation that someone can easily
+    understand and modify. As you progress in learning Neovim and Lua, you might consider splitting 
+    `init.lua` into smaller parts. A fork of kickstart that does this while maintaining the 
     same functionality is available here:
     * [kickstart-modular.nvim](https://github.com/dam9000/kickstart-modular.nvim)
-  * Discussions on this topic can be found here:
-    * [Restructure the configuration](https://github.com/nvim-lua/kickstart.nvim/issues/218)
-    * [Reorganize init.lua into a multi-file setup](https://github.com/nvim-lua/kickstart.nvim/pull/473)
+  * This configuration includes some additional plugins and customizations in the `lua/plugins/` directory.
 
 ### Install Recipes
 
 Below you can find OS specific install instructions for Neovim and dependencies.
 
-After installing all the dependencies continue with the [Install Kickstart](#Install-Kickstart) step.
+After installing all the dependencies continue with the [Install nvim-config](#Install-nvim-config) step.
 
 #### Windows Installation
 
