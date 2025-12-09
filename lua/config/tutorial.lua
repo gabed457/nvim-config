@@ -174,26 +174,84 @@ TESTING (Neotest)
 <leader>ts      Toggle test summary
 <leader>to      Show test output
 
-DEBUGGING (DAP)
-<leader>dc      Start/Continue
-<leader>di      Step into
-<leader>do      Step over
-<leader>dO      Step out
-<leader>db      Toggle breakpoint
-<leader>dB      Conditional breakpoint
-<leader>dr      Toggle REPL
-<leader>dl      Run last session
-<leader>dt      Terminate
-<leader>du      Toggle debug UI
+DEBUGGING (VSCode-like DAP)
+Start/Stop:
+  F5            Start/Continue
+  Shift+F5      Stop debugging
+  Ctrl+Shift+F5 Restart
+  <leader>dc    Start/Continue
+  <leader>dq    Stop
+  <leader>dr    Restart
 
-Function keys (when debugging):
-  F5            Continue
+Stepping:
+  F9            Toggle breakpoint
   F10           Step over
   F11           Step into
-  F12           Step out
+  Shift+F11     Step out
+  <leader>dC    Run to cursor
+  <leader>dg    Go to line (skip)
 
-Workflow: Set breakpoint with <leader>db,
-then start debug with <leader>dc
+Breakpoints (persistent - survives restarts):
+  <leader>db    Toggle breakpoint
+  <leader>dB    Conditional breakpoint
+  <leader>dl    Log point
+  <leader>dx    Clear all breakpoints
+  <leader>d?    List breakpoints (Telescope)
+
+Inspect Variables:
+  K             Hover variable (when debugging)
+  <leader>dh    Hover popup
+  <leader>de    Eval expression (works in visual)
+  <leader>ds    Float scopes
+  <leader>df    Float stack frames
+  <leader>dw    Float watches
+
+UI & Navigation:
+  <leader>du    Toggle debug UI
+  <leader>dU    Reset debug UI
+  <leader>dj    Down stack frame
+  <leader>dk    Up stack frame
+  <leader>dR    Toggle REPL
+
+Telescope Pickers:
+  <leader>dD    Debug configurations
+  <leader>dv    Debug variables
+  <leader>dF    Debug frames
+]],
+  },
+  {
+    title = 'Debug Configurations',
+    content = [[
+12 LAUNCH CONFIGURATIONS
+Available when you press F5 or <leader>dc:
+
+For TypeScript/Node.js:
+  📄 Launch Current File
+  🔷 Launch with ts-node
+  ⚡ Launch with tsx (faster)
+  📦 Launch npm script
+  🪺 Debug NestJS
+
+For Testing:
+  🧪 Debug Jest Tests
+  🧪 Debug Jest Current File
+  🧪 Debug Vitest Tests
+
+Attach to Running Process:
+  🔗 Attach to Process (pick PID)
+  🌐 Attach to Port 9229
+
+For Full-Stack:
+  🚀 Debug Server (dist/index.js)
+  🌐 Debug in Chrome
+
+INLINE VIRTUAL TEXT
+When debugging, variable values appear
+inline next to your code:
+  const user = getUser()  // user = { name: "John" }
+  const count = items.length  // count = 5
+
+Changed variables are highlighted in yellow!
 ]],
   },
   {

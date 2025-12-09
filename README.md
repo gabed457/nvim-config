@@ -1,488 +1,973 @@
-# Backend Developer Neovim Configuration# nvim-config
+# Backend Developer Neovim Configuration# Backend Developer Neovim Configuration# nvim-config
 
 
 
-> **A batteries-included Neovim setup optimized for Node.js/TypeScript Staff+ Engineers**## Introduction
+> **A batteries-included Neovim setup optimized for Node.js/TypeScript Staff+ Engineers**
 
 
 
-Stop switching between VSCode and terminal. This config gives you everything you need for professional backend development in a single, fast, keyboard-driven environment.A comprehensive Neovim configuration optimized for **Node.js/TypeScript development** with **enterprise-grade AI integration**. Built on kickstart.nvim with extensive enhancements.
+Stop switching between VSCode and terminal. This config gives you everything you need for professional backend development in a single, fast, keyboard-driven environment.> **A batteries-included Neovim setup optimized for Node.js/TypeScript Staff+ Engineers**## Introduction
 
 
 
-```### ✨ Key Features
+```
 
 Press <Space>? after installation to open the interactive tutorial
 
-```* **🤖 AI-Powered Development** - Three AI modes (Agent, Ask, Edit) similar to VSCode
+```Stop switching between VSCode and terminal. This config gives you everything you need for professional backend development in a single, fast, keyboard-driven environment.A comprehensive Neovim configuration optimized for **Node.js/TypeScript development** with **enterprise-grade AI integration**. Built on kickstart.nvim with extensive enhancements.
+
+
+
+---
+
+
+
+## 🎯 Who Is This For?```### ✨ Key Features
+
+
+
+- **Backend developers** working with Node.js, TypeScript, and REST APIsPress <Space>? after installation to open the interactive tutorial
+
+- **Staff+ engineers** who want IDE features without IDE bloat
+
+- **VSCode refugees** looking for AI coding assistance in Neovim```* **🤖 AI-Powered Development** - Three AI modes (Agent, Ask, Edit) similar to VSCode
+
+- **Anyone** who values speed, keyboard-driven workflows, and customization
 
   - GitHub Copilot integration with inline suggestions
 
+---
+
 ---  - CopilotChat for conversational AI assistance
+
+## ✨ Feature Overview
 
   - Avante for inline code editing
 
+### What's Included
+
 ## 🎯 Who Is This For?  - Model switching support
 
-* **⚡ TypeScript/JavaScript Excellence**
+| Category | Features |
 
-- **Backend developers** working with Node.js, TypeScript, and REST APIs  - Full LSP support with ts_ls, ESLint, and JSON schemas
+|----------|----------|* **⚡ TypeScript/JavaScript Excellence**
 
-- **Staff+ engineers** who want IDE features without IDE bloat  - Auto-imports and intelligent completions
+| **🤖 AI Coding** | GitHub Copilot inline suggestions, CopilotChat (Agent mode), Avante (inline edit), model switching |
 
-- **VSCode refugees** looking for AI coding assistance in Neovim  - Package.json version management
+| **📝 TypeScript/JS** | Full LSP, auto-imports, inlay hints, template string conversion, ESLint, Prettier |- **Backend developers** working with Node.js, TypeScript, and REST APIs  - Full LSP support with ts_ls, ESLint, and JSON schemas
 
-- **Anyone** who values speed, keyboard-driven workflows, and customization  - Template string auto-conversion
+| **🗄️ Database** | Connect to PostgreSQL, MySQL, SQLite with vim-dadbod UI, SQL autocompletion |
 
-* **🧪 Testing & Debugging**
+| **🌐 API Testing** | Bruno/HTTP client, environment management, cURL export |- **Staff+ engineers** who want IDE features without IDE bloat  - Auto-imports and intelligent completions
 
----  - Neotest integration (Jest, Vitest)
+| **🧪 Testing** | Jest & Vitest integration, run tests from editor, debug tests with DAP |
 
-  - Full DAP debugging for Node.js and Chrome
+| **🐛 Debugging** | VSCode-like debugger with 12 configurations, persistent breakpoints, inline variable display |- **VSCode refugees** looking for AI coding assistance in Neovim  - Package.json version management
 
-## ✨ Feature Overview  - Visual debugging with virtual text
+| **🌿 Git** | LazyGit TUI, staged/unstaged diffs, blame, conflict resolution |
 
-* **🎨 Modern UI**
+| **📋 TODO Tracking** | Highlight and search TODO/FIXME/HACK comments across project |- **Anyone** who values speed, keyboard-driven workflows, and customization  - Template string auto-conversion
 
-### What's Included  - Lualine statusline
+| **🔍 Search** | Fuzzy find files, grep contents, project-wide search & replace (Spectre) |
 
-  - Bufferline for tabs
-
-| Category | Features |  - Noice for better notifications
-
-|----------|----------|  - Neo-tree file explorer
-
-| **🤖 AI Coding** | GitHub Copilot inline suggestions, CopilotChat (Agent mode), Avante (inline edit), model switching |  - Integrated terminal (ToggleTerm)
-
-| **📝 TypeScript/JS** | Full LSP, auto-imports, inlay hints, template string conversion, ESLint, Prettier |* **🔧 Git Integration**
-
-| **🗄️ Database** | Connect to PostgreSQL, MySQL, SQLite with vim-dadbod UI, SQL autocompletion |  - LazyGit TUI
-
-| **🌐 API Testing** | Bruno/HTTP client, environment management, cURL export |  - Git blame, diff view, and conflict resolution
-
-| **🧪 Testing** | Jest & Vitest integration, run tests from editor, debug tests with DAP |  - Gitsigns for inline git changes
-
-| **🐛 Debugging** | Full Node.js debugger, breakpoints, step-through, variable inspection |* **📦 Production Ready**
-
-| **🌿 Git** | LazyGit TUI, staged/unstaged diffs, blame, conflict resolution |  - Bruno API client integration with multi-collection support
-
-| **📋 TODO Tracking** | Highlight and search TODO/FIXME/HACK comments across project |  - REST client for .http and .bru files
-
-| **🔍 Search** | Fuzzy find files, grep contents, project-wide search & replace (Spectre) |  - Extensive keybindings
-
-| **📁 File Explorer** | Neo-tree with git status icons, file operations |  - Comprehensive documentation
+| **📁 File Explorer** | Neo-tree with git status icons, file operations |* **🧪 Testing & Debugging**
 
 | **🐳 Docker** | Dockerfile & docker-compose LSP support |
 
-| **📄 YAML** | Full LSP for CI/CD, k8s manifests, GitHub Actions |### 🚀 Quick Start
+| **📄 YAML** | Full LSP for CI/CD, k8s manifests, GitHub Actions |---  - Neotest integration (Jest, Vitest)
 
 | **🔐 Environment** | .env file support with auto-loading |
 
-| **📊 JSON** | Schema validation, jq-powered exploration |See [AI_GUIDE.md](./AI_GUIDE.md) for AI features, [KEYBINDINGS.md](./KEYBINDINGS.md) for all keybindings, and [BRUNO_GUIDE.md](./BRUNO_GUIDE.md) for API testing.
+| **📊 JSON** | Schema validation, jq-powered exploration |  - Full DAP debugging for Node.js and Chrome
 
 | **📜 Logs** | Syntax highlighting for .log files |
 
-This configuration is:
+## ✨ Feature Overview  - Visual debugging with virtual text
 
 ### What's Intentionally Left Out
 
-* **Optimized** - Specifically tuned for TypeScript/Node.js development
+* **🎨 Modern UI**
 
-We kept this config focused on **backend development**. Here's what we deliberately excluded:* **Well-documented** - Complete guides for AI and keybindings
+We kept this config focused on **backend development**. Here's what we deliberately excluded:
 
-* **Customizable** - Modular plugin structure
+### What's Included  - Lualine statusline
 
-| Excluded | Reason |* **Ready to use** - No additional setup needed after installation
+| Excluded | Reason |
 
-|----------|--------|
+|----------|--------|  - Bufferline for tabs
 
-| **Frontend frameworks** (React/Vue/Svelte components) | Backend-focused; add if needed |## Installation
+| **Frontend frameworks** (React/Vue/Svelte components) | Backend-focused; add if needed |
 
-| **Prisma ORM** | We use TypeORM; add `prismals` if you use Prisma |
+| **Prisma ORM** | We use TypeORM; add `prismals` if you use Prisma || Category | Features |  - Noice for better notifications
 
-| **GraphQL** | Add `graphql-language-service` if you work with GraphQL |### Install Neovim
+| **GraphQL** | Add `graphql-language-service` if you work with GraphQL |
 
-| **Python/Go/Rust LSPs** | Node.js focused; add language servers as needed |
+| **Python/Go/Rust LSPs** | Node.js focused; add language servers as needed ||----------|----------|  - Neo-tree file explorer
 
-| **Heavy themes/eye candy** | Performance over aesthetics |This configuration targets *only* the latest
+| **Heavy themes/eye candy** | Performance over aesthetics |
 
-| **Session management** | Kept simple; add if you need persistent sessions |['stable'](https://github.com/neovim/neovim/releases/tag/stable) and latest
+| **Session management** | Kept simple; add if you need persistent sessions || **🤖 AI Coding** | GitHub Copilot inline suggestions, CopilotChat (Agent mode), Avante (inline edit), model switching |  - Integrated terminal (ToggleTerm)
 
-| **Project management** | Use git worktrees or tmux instead |['nightly'](https://github.com/neovim/neovim/releases/tag/nightly) of Neovim.
+| **Project management** | Use git worktrees or tmux instead |
 
-| **Org-mode/Note-taking** | Use dedicated tools like Obsidian |If you are experiencing issues, please make sure you have the latest versions.
+| **Org-mode/Note-taking** | Use dedicated tools like Obsidian || **📝 TypeScript/JS** | Full LSP, auto-imports, inlay hints, template string conversion, ESLint, Prettier |* **🔧 Git Integration**
 
 | **Copilot alternatives** (Codeium, Tabnine) | Copilot-only for consistency |
 
-### Install External Dependencies
+| **🗄️ Database** | Connect to PostgreSQL, MySQL, SQLite with vim-dadbod UI, SQL autocompletion |  - LazyGit TUI
 
 ---
 
-External Requirements:
+| **🌐 API Testing** | Bruno/HTTP client, environment management, cURL export |  - Git blame, diff view, and conflict resolution
 
-## 🚀 Quick Start- Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
+## 🚀 Quick Start
 
-- [ripgrep](https://github.com/BurntSushi/ripgrep#installation)
+| **🧪 Testing** | Jest & Vitest integration, run tests from editor, debug tests with DAP |  - Gitsigns for inline git changes
 
-### Prerequisites- Clipboard tool (xclip/xsel/win32yank or other depending on platform)
+### Prerequisites
 
-- A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
+| **🐛 Debugging** | Full Node.js debugger, breakpoints, step-through, variable inspection |* **📦 Production Ready**
 
-```bash  - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
+```bash
 
-# Required- Language Setup:
+# Required| **🌿 Git** | LazyGit TUI, staged/unstaged diffs, blame, conflict resolution |  - Bruno API client integration with multi-collection support
 
-brew install neovim node git ripgrep  - If you want to write Typescript, you need `npm`
+brew install neovim node git ripgrep
 
-  - If you want to write Golang, you will need `go`
+| **📋 TODO Tracking** | Highlight and search TODO/FIXME/HACK comments across project |  - REST client for .http and .bru files
 
-# Recommended  - etc.
+# Recommended
 
-brew install lazygit jq fd
+brew install lazygit jq fd| **🔍 Search** | Fuzzy find files, grep contents, project-wide search & replace (Spectre) |  - Extensive keybindings
 
-```> **NOTE**
+```
 
-> See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes
+| **📁 File Explorer** | Neo-tree with git status icons, file operations |  - Comprehensive documentation
 
-### Installation> and quick install snippets
+### Installation
 
+| **🐳 Docker** | Dockerfile & docker-compose LSP support |
 
+```bash
 
-```bash### Install nvim-config
+# Backup existing config (if any)| **📄 YAML** | Full LSP for CI/CD, k8s manifests, GitHub Actions |### 🚀 Quick Start
 
-# Backup existing config (if any)
+mv ~/.config/nvim ~/.config/nvim.backup
 
-mv ~/.config/nvim ~/.config/nvim.backup> **NOTE**
-
-> [Backup](#FAQ) your previous configuration (if any exists)
+| **🔐 Environment** | .env file support with auto-loading |
 
 # Clone this config
 
-git clone https://github.com/gabed457/nvim-config.git ~/.config/nvimNeovim's configurations are located under the following paths, depending on your OS:
+git clone https://github.com/gabed457/nvim-config.git ~/.config/nvim| **📊 JSON** | Schema validation, jq-powered exploration |See [AI_GUIDE.md](./AI_GUIDE.md) for AI features, [KEYBINDINGS.md](./KEYBINDINGS.md) for all keybindings, and [BRUNO_GUIDE.md](./BRUNO_GUIDE.md) for API testing.
 
 
 
-# Start Neovim (plugins install automatically)| OS | PATH |
+# Start Neovim (plugins install automatically)| **📜 Logs** | Syntax highlighting for .log files |
 
-nvim| :- | :--- |
+nvim
 
-```| Linux, MacOS | `$XDG_CONFIG_HOME/nvim`, `~/.config/nvim` |
-
-| Windows (cmd)| `%localappdata%\nvim\` |
-
-### First Steps After Installation| Windows (powershell)| `$env:LOCALAPPDATA\nvim\` |
+```This configuration is:
 
 
 
-1. **Wait** for plugins to install (you'll see progress in the UI)#### Recommended Step
+### First Steps After Installation### What's Intentionally Left Out
+
+
+
+1. **Wait** for plugins to install (you'll see progress in the UI)* **Optimized** - Specifically tuned for TypeScript/Node.js development
 
 2. **Authenticate Copilot**: Run `:Copilot auth`
 
-3. **Check health**: Run `:checkhealth`[Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) this repo
+3. **Check health**: Run `:checkhealth`We kept this config focused on **backend development**. Here's what we deliberately excluded:* **Well-documented** - Complete guides for AI and keybindings
 
-4. **Open tutorial**: Press `<Space>?`so that you have your own copy that you can modify, then install by cloning the
+4. **Open tutorial**: Press `<Space>?`
 
-fork to your machine using one of the commands below, depending on your OS.
+* **Customizable** - Modular plugin structure
 
 ---
 
-> **NOTE**
+| Excluded | Reason |* **Ready to use** - No additional setup needed after installation
 
-## ⌨️ Essential Keybindings> Your fork's url will be something like this:
+## ⌨️ Essential Keybindings
 
-> `https://github.com/<your_github_username>/nvim-config.git`
+|----------|--------|
 
 > Leader key is `<Space>`. Press it and wait to see all options.
 
-You likely want to remove `lazy-lock.json` from your fork's `.gitignore` file
+| **Frontend frameworks** (React/Vue/Svelte components) | Backend-focused; add if needed |## Installation
 
-### Daily Workflowtoo - it's ignored in this repo to make maintenance easier, but it's
+### Daily Workflow
 
-[recommended to track it in version control](https://lazy.folke.io/usage/lockfile).
+| **Prisma ORM** | We use TypeORM; add `prismals` if you use Prisma |
 
 | Keys | Action |
 
-|------|--------|#### Clone nvim-config
+|------|--------|| **GraphQL** | Add `graphql-language-service` if you work with GraphQL |### Install Neovim
 
-| `<Space>e` | Toggle file explorer |> **NOTE**
+| `<Space>e` | Toggle file explorer |
 
-| `<Space>sf` | Find files |> If following the recommended step above (i.e., forking the repo), replace
+| `<Space>sf` | Find files || **Python/Go/Rust LSPs** | Node.js focused; add language servers as needed |
 
-| `<Space>sg` | Search in files (grep) |> `gabed457` with `<your_github_username>` in the commands below
+| `<Space>sg` | Search in files (grep) |
 
-| `<Space>sr` | Resume last search |
+| `<Space>sr` | Resume last search || **Heavy themes/eye candy** | Performance over aesthetics |This configuration targets *only* the latest
 
-| `<Space>?` | Open interactive tutorial |<details><summary> Linux and Mac </summary>
+| `<Space>?` | Open interactive tutorial |
+
+| **Session management** | Kept simple; add if you need persistent sessions |['stable'](https://github.com/neovim/neovim/releases/tag/stable) and latest
+
+### Code Navigation
+
+| **Project management** | Use git worktrees or tmux instead |['nightly'](https://github.com/neovim/neovim/releases/tag/nightly) of Neovim.
+
+| Keys | Action |
+
+|------|--------|| **Org-mode/Note-taking** | Use dedicated tools like Obsidian |If you are experiencing issues, please make sure you have the latest versions.
+
+| `gd` | Go to definition |
+
+| `gr` | Go to references || **Copilot alternatives** (Codeium, Tabnine) | Copilot-only for consistency |
+
+| `K` | Hover documentation |
+
+| `<Space>ca` | Code actions |### Install External Dependencies
+
+| `<Space>cr` | Rename symbol |
+
+| `<Space>f` | Format file |---
 
 
 
-### Code Navigation```sh
+### AI CodingExternal Requirements:
 
-git clone https://github.com/gabed457/nvim-config.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 
-| Keys | Action |```
+
+| Keys | Action |## 🚀 Quick Start- Basic utils: `git`, `make`, `unzip`, C Compiler (`gcc`)
 
 |------|--------|
 
-| `gd` | Go to definition |</details>
+| `Ctrl+l` | Accept Copilot suggestion |- [ripgrep](https://github.com/BurntSushi/ripgrep#installation)
 
-| `gr` | Go to references |
+| `<Space>aa` | Open AI Chat |
 
-| `K` | Hover documentation |<details><summary> Windows </summary>
+| `<Space>aq` | Quick AI question |### Prerequisites- Clipboard tool (xclip/xsel/win32yank or other depending on platform)
 
-| `<Space>ca` | Code actions |
+| `<Space>ae` | Explain selected code |
+
+| `<Space>af` | Fix code |- A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
+
+| `<Space>ai` | Inline AI edit (Avante) |
+
+```bash  - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
+
+### Git
+
+# Required- Language Setup:
+
+| Keys | Action |
+
+|------|--------|brew install neovim node git ripgrep  - If you want to write Typescript, you need `npm`
+
+| `<Space>gg` | Open LazyGit |
+
+| `<Space>gd` | Toggle diff view |  - If you want to write Golang, you will need `go`
+
+| `<Space>gD` | View staged changes |
+
+| `<Space>gU` | View unstaged changes |# Recommended  - etc.
+
+| `<Space>gb` | Toggle git blame |
+
+brew install lazygit jq fd
+
+### Testing
+
+```> **NOTE**
+
+| Keys | Action |
+
+|------|--------|> See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes
+
+| `<Space>tt` | Run nearest test |
+
+| `<Space>tf` | Run file tests |### Installation> and quick install snippets
+
+| `<Space>ts` | Toggle test summary |
+
+| `<Space>td` | Debug test |
+
+
+
+### Debugging (VSCode-like)```bash### Install nvim-config
+
+
+
+| Keys | Action |# Backup existing config (if any)
+
+|------|--------|
+
+| `F5` | Start/Continue |mv ~/.config/nvim ~/.config/nvim.backup> **NOTE**
+
+| `Shift+F5` | Stop |
+
+| `Ctrl+Shift+F5` | Restart |> [Backup](#FAQ) your previous configuration (if any exists)
+
+| `F9` | Toggle breakpoint |
+
+| `F10` | Step over |# Clone this config
+
+| `F11` | Step into |
+
+| `Shift+F11` | Step out |git clone https://github.com/gabed457/nvim-config.git ~/.config/nvimNeovim's configurations are located under the following paths, depending on your OS:
+
+| `<Space>db` | Toggle breakpoint |
+
+| `<Space>dB` | Conditional breakpoint |
+
+| `<Space>dc` | Start/Continue |
+
+| `<Space>du` | Toggle debug UI |# Start Neovim (plugins install automatically)| OS | PATH |
+
+| `<Space>dh` | Hover variable |
+
+| `<Space>de` | Eval expression |nvim| :- | :--- |
+
+| `K` | Hover variable (while debugging) |
+
+```| Linux, MacOS | `$XDG_CONFIG_HOME/nvim`, `~/.config/nvim` |
+
+### Database
+
+| Windows (cmd)| `%localappdata%\nvim\` |
+
+| Keys | Action |
+
+|------|--------|### First Steps After Installation| Windows (powershell)| `$env:LOCALAPPDATA\nvim\` |
+
+| `<Space>Dt` | Toggle database UI |
+
+| `<Space>Da` | Add database connection |
+
+
+
+### TODO Comments1. **Wait** for plugins to install (you'll see progress in the UI)#### Recommended Step
+
+
+
+| Keys | Action |2. **Authenticate Copilot**: Run `:Copilot auth`
+
+|------|--------|
+
+| `]t` | Next TODO |3. **Check health**: Run `:checkhealth`[Fork](https://docs.github.com/en/get-started/quickstart/fork-a-repo) this repo
+
+| `[t` | Previous TODO |
+
+| `<Space>st` | Search all TODOs |4. **Open tutorial**: Press `<Space>?`so that you have your own copy that you can modify, then install by cloning the
+
+
+
+### Search & Replacefork to your machine using one of the commands below, depending on your OS.
+
+
+
+| Keys | Action |---
+
+|------|--------|
+
+| `<Space>Sr` | Open Spectre (search/replace) |> **NOTE**
+
+| `<Space>Sw` | Search word under cursor |
+
+## ⌨️ Essential Keybindings> Your fork's url will be something like this:
+
+### REST/Bruno API
+
+> `https://github.com/<your_github_username>/nvim-config.git`
+
+| Keys | Action |
+
+|------|--------|> Leader key is `<Space>`. Press it and wait to see all options.
+
+| `<Space>rr` | Run HTTP request |
+
+| `<Space>rt` | Toggle response view |You likely want to remove `lazy-lock.json` from your fork's `.gitignore` file
+
+| `<Space>rc` | Copy as cURL |
+
+### Daily Workflowtoo - it's ignored in this repo to make maintenance easier, but it's
+
+---
+
+[recommended to track it in version control](https://lazy.folke.io/usage/lockfile).
+
+## 🐛 Debugging (VSCode-Like Experience)
+
+| Keys | Action |
+
+This configuration includes a **world-class TypeScript debugger** that matches VSCode's experience.
+
+|------|--------|#### Clone nvim-config
+
+### 12 Launch Configurations
+
+| `<Space>e` | Toggle file explorer |> **NOTE**
+
+When you press `F5` or `<Space>dc`, you can choose from:
+
+| `<Space>sf` | Find files |> If following the recommended step above (i.e., forking the repo), replace
+
+| Configuration | Use Case |
+
+|---------------|----------|| `<Space>sg` | Search in files (grep) |> `gabed457` with `<your_github_username>` in the commands below
+
+| 📄 Launch Current File | Debug any JS/TS file directly |
+
+| 🔷 Launch with ts-node | TypeScript without compilation || `<Space>sr` | Resume last search |
+
+| ⚡ Launch with tsx | Fast ts-node alternative |
+
+| 📦 Launch npm script | Debug any npm script (dev, start, etc.) || `<Space>?` | Open interactive tutorial |<details><summary> Linux and Mac </summary>
+
+| 🔗 Attach to Process | Attach to running Node.js process |
+
+| 🌐 Attach to Port 9229 | For `nodemon --inspect` |
+
+| 🧪 Debug Jest Tests | Run all Jest tests with debugger |
+
+| 🧪 Debug Jest Current File | Debug tests in current file |### Code Navigation```sh
+
+| 🧪 Debug Vitest Tests | Vitest support |
+
+| 🪺 Debug NestJS | NestJS `start:debug` script |git clone https://github.com/gabed457/nvim-config.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+
+| 🚀 Debug Server | Express/Fastify `dist/index.js` |
+
+| 🌐 Debug in Chrome | Frontend debugging || Keys | Action |```
+
+
+
+### Features That Match VSCode|------|--------|
+
+
+
+| Feature | Description || `gd` | Go to definition |</details>
+
+|---------|-------------|
+
+| **Persistent Breakpoints** | Breakpoints survive Neovim restarts || `gr` | Go to references |
+
+| **Inline Virtual Text** | Variable values shown inline: `const x = 5  // x = 5` |
+
+| **Changed Variable Highlighting** | Modified variables highlighted in yellow || `K` | Hover documentation |<details><summary> Windows </summary>
+
+| **Hover to Inspect** | Press `K` while debugging to see variable value |
+
+| **Telescope Integration** | `<Space>dD` for configuration picker || `<Space>ca` | Code actions |
+
+| **Nerd Font Icons** | Beautiful breakpoint and control icons |
 
 | `<Space>cr` | Rename symbol |If you're using `cmd.exe`:
+
+### Debugging Workflow
 
 | `<Space>f` | Format file |
 
 ```
 
-### AI Codinggit clone https://github.com/gabed457/nvim-config.git "%localappdata%\nvim"
+1. Open your TypeScript file```
+
+2. <Space>db  →  Set breakpoint (red dot appears)
+
+3. <Space>dc  →  Select configuration and start### AI Codinggit clone https://github.com/gabed457/nvim-config.git "%localappdata%\nvim"
+
+4. F10        →  Step over
+
+5. F11        →  Step into```
+
+6. K          →  Hover any variable to inspect
+
+7. <Space>du  →  Toggle debug UI panels| Keys | Action |
+
+8. Shift+F5   →  Stop debugging
+
+```|------|--------|If you're using `powershell.exe`
+
+
+
+### Debug UI Layout| `Ctrl+l` | Accept Copilot suggestion |
+
+
+
+```| `<Space>aa` | Open AI Chat |```
+
+┌─────────────────────┬──────────────────────────────────────────┐
+
+│  Variables (35%)    │                                          │| `<Space>aq` | Quick AI question |git clone https://github.com/gabed457/nvim-config.git "${env:LOCALAPPDATA}\nvim"
+
+│   user = {...}      │        Your Code                         │
+
+│   count = 5         │   with inline variable values            │| `<Space>ae` | Explain selected code |```
+
+├─────────────────────┤        x = 42  y = "hello"               │
+
+│  Watch (20%)       │                                          │| `<Space>af` | Fix code |
+
+│   expression1       │                                          │
+
+├─────────────────────┤                                          │| `<Space>ai` | Inline AI edit (Avante) |</details>
+
+│  Call Stack (25%)  │                                          │
+
+│   → main.ts:45      │                                          │
+
+├─────────────────────┤                                          │
+
+│  Breakpoints (20%) │                                          │### Git### Post Installation
+
+│   ● main.ts:45      │                                          │
+
+└─────────────────────┴──────────────────────────────────────────┘
+
+│  Debug Console (60%)                │  REPL (40%)              │
+
+│  > Server started on port 3000      │  > user.name             │| Keys | Action |Start Neovim
+
+│  > Request received: GET /api       │  "John"                  │
+
+└─────────────────────────────────────┴──────────────────────────┘|------|--------|
 
 ```
 
-| Keys | Action |
-
-|------|--------|If you're using `powershell.exe`
-
-| `Ctrl+l` | Accept Copilot suggestion |
-
-| `<Space>aa` | Open AI Chat |```
-
-| `<Space>aq` | Quick AI question |git clone https://github.com/gabed457/nvim-config.git "${env:LOCALAPPDATA}\nvim"
-
-| `<Space>ae` | Explain selected code |```
-
-| `<Space>af` | Fix code |
-
-| `<Space>ai` | Inline AI edit (Avante) |</details>
-
-
-
-### Git### Post Installation
-
-
-
-| Keys | Action |Start Neovim
-
-|------|--------|
-
 | `<Space>gg` | Open LazyGit |```sh
+
+---
 
 | `<Space>gd` | Toggle diff view |nvim
 
+## 🧪 Testing Workflow
+
 | `<Space>gD` | View staged changes |```
 
-| `<Space>gU` | View unstaged changes |
+```
 
-| `<Space>gb` | Toggle git blame |That's it! Lazy will install all the plugins you have. Use `:Lazy` to view
+1. Open a test file (*.test.ts, *.spec.ts)| `<Space>gU` | View unstaged changes |
 
-current plugin status. Hit `q` to close the window.
+2. <Space>tt  →  Run test under cursor
 
-### Testing & Debug
+3. <Space>ts  →  Toggle test summary panel| `<Space>gb` | Toggle git blame |That's it! Lazy will install all the plugins you have. Use `:Lazy` to view
 
-**Important First Steps:**
+4. <Space>td  →  Debug test with breakpoints
 
-| Keys | Action |
-
-|------|--------|1. **Authenticate GitHub Copilot**: Run `:Copilot auth` and follow the prompts
-
-| `<Space>tt` | Run nearest test |2. **Install Node.js**: Required for TypeScript LSP and formatters
-
-| `<Space>tf` | Run file tests |3. **Check Health**: Run `:checkhealth` to verify all dependencies
-
-| `<Space>td` | Debug test |4. **Review Keybindings**: See [KEYBINDINGS.md](./KEYBINDINGS.md)
-
-| `<Space>db` | Toggle breakpoint |5. **Learn AI Features**: Read [AI_GUIDE.md](./AI_GUIDE.md)
-
-| `<Space>dc` | Start/continue debug |
-
-| `F5` | Continue |### 📚 Documentation
-
-| `F10` | Step over |
-
-This configuration includes comprehensive documentation:
-
-### Database
-
-- **[AI_GUIDE.md](./AI_GUIDE.md)** - Complete guide to AI features (Agent, Ask, Edit modes)
-
-| Keys | Action |- **[KEYBINDINGS.md](./KEYBINDINGS.md)** - All keybindings organized by category
-
-|------|--------|- **init.lua** - Main configuration with inline comments
-
-| `<Space>Dt` | Toggle database UI |
-
-| `<Space>Da` | Add database connection |### 🎯 Quick Reference
+```current plugin status. Hit `q` to close the window.
 
 
 
-### TODO Comments**Essential Keybindings:**
+Test adapters included:### Testing & Debug
 
-- `<Space>` - Leader key (wait for which-key popup)
+- **Jest** - Full integration
 
-| Keys | Action |- `<Space>aa` - AI Agent Chat (conversational AI)
-
-|------|--------|- `<Space>aq` - Quick AI question
-
-| `]t` | Next TODO |- `<Space>ai` - Inline AI edit
-
-| `[t` | Previous TODO |- `<Space>e` - File explorer
-
-| `<Space>st` | Search all TODOs |- `<Space>sf` - Find files
-
-- `<Space>sg` - Search in files
-
-### Search & Replace- `<Space>gg` - LazyGit
-
-- `<C-\>` - Toggle terminal
-
-| Keys | Action |
-
-|------|--------|### 🔧 Node.js/TypeScript Features
-
-| `<Space>Sr` | Open Spectre (search/replace) |
-
-| `<Space>Sw` | Search word under cursor |**LSP Servers Included:**
-
-- `ts_ls` - TypeScript/JavaScript language server
-
-### REST/Bruno API- `eslint` - ESLint integration
-
-- `jsonls` - JSON with schema validation
-
-| Keys | Action |- `html`, `cssls` - Web development
-
-|------|--------|- `tailwindcss` - Tailwind CSS IntelliSense
-
-| `<Space>rr` | Run HTTP request |- `emmet_ls` - Emmet abbreviations
-
-| `<Space>rt` | Toggle response view |
-
-| `<Space>rc` | Copy as cURL |**Tools Installed:**
-
-- Prettier/Prettierd for formatting
-
----- ESLint_d for fast linting
-
-- JS Debug Adapter for debugging
-
-## 🗄️ Database Setup- Package version management
-
-- Auto-import support
-
-Connect to any database supported by vim-dadbod:
-
-**Testing:**
-
-```- Jest integration
-
-<Space>Da  →  Enter connection string- Vitest support
-
-```- Debug tests with DAP
+- **Vitest** - Native support**Important First Steps:**
 
 
 
-**Connection string examples:**### Getting Started
+---| Keys | Action |
 
 
 
-```[The Only Video You Need to Get Started with Neovim](https://youtu.be/m8C0Cq9Uv9o)
+## 🗄️ Database Setup|------|--------|1. **Authenticate GitHub Copilot**: Run `:Copilot auth` and follow the prompts
+
+
+
+Connect to any database supported by vim-dadbod:| `<Space>tt` | Run nearest test |2. **Install Node.js**: Required for TypeScript LSP and formatters
+
+
+
+```| `<Space>tf` | Run file tests |3. **Check Health**: Run `:checkhealth` to verify all dependencies
+
+<Space>Da  →  Enter connection string
+
+```| `<Space>td` | Debug test |4. **Review Keybindings**: See [KEYBINDINGS.md](./KEYBINDINGS.md)
+
+
+
+**Connection string examples:**| `<Space>db` | Toggle breakpoint |5. **Learn AI Features**: Read [AI_GUIDE.md](./AI_GUIDE.md)
+
+
+
+```| `<Space>dc` | Start/continue debug |
 
 postgresql://user:pass@localhost:5432/mydb
 
-mysql://user:pass@localhost:3306/mydb**Additional Resources:**
+mysql://user:pass@localhost:3306/mydb| `F5` | Continue |### 📚 Documentation
 
-sqlite:./dev.db- Press `<Space>` and wait to see all available commands (which-key)
+sqlite:./dev.db
 
-```- Use `:Telescope keymaps` to search keybindings
+```| `F10` | Step over |
 
-- Check `:help` for Neovim documentation
 
-The database UI shows:- Read inline comments in `init.lua`
+
+The database UI shows:This configuration includes comprehensive documentation:
 
 - All tables and schemas
 
-- Saved queries### FAQ
+- Saved queries### Database
 
 - Query results with formatting
 
-* What should I do if I already have a pre-existing neovim configuration?
+- **[AI_GUIDE.md](./AI_GUIDE.md)** - Complete guide to AI features (Agent, Ask, Edit modes)
 
----  * You should back it up and then delete all associated files.
+---
 
-  * This includes your existing init.lua and the neovim files in `~/.local`
+| Keys | Action |- **[KEYBINDINGS.md](./KEYBINDINGS.md)** - All keybindings organized by category
 
-## 🧪 Testing Workflow    which can be deleted with `rm -rf ~/.local/share/nvim/`
+## 🌐 API Testing (Bruno/HTTP)
 
-* Can I keep my existing configuration in parallel to this config?
+|------|--------|- **init.lua** - Main configuration with inline comments
 
-```  * Yes! You can use [NVIM_APPNAME](https://neovim.io/doc/user/starting.html#%24NVIM_APPNAME)`=nvim-NAME`
+Create `.http` or `.bru` files:
 
-1. Open a test file (*.test.ts, *.spec.ts)    to maintain multiple configurations. For example, you can install this
+| `<Space>Dt` | Toggle database UI |
 
-2. <Space>tt  →  Run test under cursor    configuration in `~/.config/nvim-gabed` and create an alias:
+```http
 
-3. <Space>ts  →  Toggle test summary panel    ```
+### Get Users| `<Space>Da` | Add database connection |### 🎯 Quick Reference
 
-4. <Space>td  →  Debug test with breakpoints    alias nvim-gabed='NVIM_APPNAME="nvim-gabed" nvim'
+GET http://localhost:3000/api/users
 
-```    ```
+Authorization: Bearer {{token}}
 
-    When you run Neovim using `nvim-gabed` alias it will use the alternative
 
-Test adapters included:    config directory and the matching local directory
 
-- **Jest** - `npm test`    `~/.local/share/nvim-gabed`. You can apply this approach to any Neovim
+### Create User### TODO Comments**Essential Keybindings:**
 
-- **Vitest** - Native support    distribution that you would like to try out.
+POST http://localhost:3000/api/users
 
-* How do I switch between AI models?
+Content-Type: application/json- `<Space>` - Leader key (wait for which-key popup)
 
----  * Press `<Space>am` in normal mode to see available models
 
-  * All AI features use GitHub Copilot by default
 
-## 🐛 Debugging Workflow  * You need an active Copilot subscription
+{| Keys | Action |- `<Space>aa` - AI Agent Chat (conversational AI)
 
-* Where can I add my own plugins?
+  "name": "John",
 
-```  * Add them to `lua/custom/plugins/` directory
+  "email": "john@example.com"|------|--------|- `<Space>aq` - Quick AI question
+
+}
+
+```| `]t` | Next TODO |- `<Space>ai` - Inline AI edit
+
+
+
+Then:| `[t` | Previous TODO |- `<Space>e` - File explorer
+
+- `<Space>rr` - Run request under cursor
+
+- `<Space>rt` - Toggle between body/headers view| `<Space>st` | Search all TODOs |- `<Space>sf` - Find files
+
+- `<Space>rc` - Copy as cURL command
+
+- `<Space>sg` - Search in files
+
+Configure environments in `lua/config/bruno-config.lua`.
+
+### Search & Replace- `<Space>gg` - LazyGit
+
+---
+
+- `<C-\>` - Toggle terminal
+
+## 📁 Project Structure
+
+| Keys | Action |
+
+```
+
+~/.config/nvim/|------|--------|### 🔧 Node.js/TypeScript Features
+
+├── init.lua                 # Main config (LSP, keybindings, core plugins)
+
+├── lua/| `<Space>Sr` | Open Spectre (search/replace) |
+
+│   ├── config/
+
+│   │   ├── bruno-config.lua # API collection settings| `<Space>Sw` | Search word under cursor |**LSP Servers Included:**
+
+│   │   └── tutorial.lua     # Interactive tutorial
+
+│   └── plugins/- `ts_ls` - TypeScript/JavaScript language server
+
+│       ├── backend.lua      # Database, Spectre, logs, dotenv
+
+│       ├── debug.lua        # VSCode-like debugger (DAP)### REST/Bruno API- `eslint` - ESLint integration
+
+│       ├── git.lua          # Git integration
+
+│       ├── testing.lua      # Neotest (Jest, Vitest)- `jsonls` - JSON with schema validation
+
+│       ├── typescript.lua   # TS tools, TODO comments
+
+│       ├── ui.lua           # Statusline, bufferline, notifications| Keys | Action |- `html`, `cssls` - Web development
+
+│       └── ...
+
+└── lazy-lock.json           # Plugin versions (committed)|------|--------|- `tailwindcss` - Tailwind CSS IntelliSense
+
+```
+
+| `<Space>rr` | Run HTTP request |- `emmet_ls` - Emmet abbreviations
+
+---
+
+| `<Space>rt` | Toggle response view |
+
+## 🔧 Customization
+
+| `<Space>rc` | Copy as cURL |**Tools Installed:**
+
+### Adding a Plugin
+
+- Prettier/Prettierd for formatting
+
+Create a file in `lua/plugins/` that returns a table:
+
+---- ESLint_d for fast linting
+
+```lua
+
+-- lua/plugins/my-plugin.lua- JS Debug Adapter for debugging
+
+return {
+
+  {## 🗄️ Database Setup- Package version management
+
+    'author/plugin-name',
+
+    config = function()- Auto-import support
+
+      require('plugin-name').setup({})
+
+    end,Connect to any database supported by vim-dadbod:
+
+  },
+
+}**Testing:**
+
+```
+
+```- Jest integration
+
+### Adding an LSP Server
+
+<Space>Da  →  Enter connection string- Vitest support
+
+In `init.lua`, find the `servers` table and add:
+
+```- Debug tests with DAP
+
+```lua
+
+local servers = {
+
+  -- ... existing servers ...
+
+  **Connection string examples:**### Getting Started
+
+  -- Add your server
+
+  graphql = {},  -- or with options: { settings = { ... } }
+
+}
+
+``````[The Only Video You Need to Get Started with Neovim](https://youtu.be/m8C0Cq9Uv9o)
+
+
+
+Then run `:Mason` to install it.postgresql://user:pass@localhost:5432/mydb
+
+
+
+### Changing Keybindingsmysql://user:pass@localhost:3306/mydb**Additional Resources:**
+
+
+
+Search for `vim.keymap.set` in `init.lua` or plugin files. Example:sqlite:./dev.db- Press `<Space>` and wait to see all available commands (which-key)
+
+
+
+```lua```- Use `:Telescope keymaps` to search keybindings
+
+vim.keymap.set('n', '<leader>xx', '<cmd>SomeCommand<cr>', { desc = 'Description' })
+
+```- Check `:help` for Neovim documentation
+
+
+
+---The database UI shows:- Read inline comments in `init.lua`
+
+
+
+## 📋 LSP Servers Included- All tables and schemas
+
+
+
+| Server | Purpose |- Saved queries### FAQ
+
+|--------|---------|
+
+| `ts_ls` | TypeScript/JavaScript |- Query results with formatting
+
+| `eslint` | Linting |
+
+| `jsonls` | JSON with schema validation |* What should I do if I already have a pre-existing neovim configuration?
+
+| `yamlls` | YAML (CI/CD, k8s, docker-compose) |
+
+| `dockerls` | Dockerfile |---  * You should back it up and then delete all associated files.
+
+| `docker_compose_language_service` | docker-compose.yml |
+
+| `html` | HTML |  * This includes your existing init.lua and the neovim files in `~/.local`
+
+| `cssls` | CSS/SCSS/Less |
+
+| `tailwindcss` | Tailwind CSS |## 🧪 Testing Workflow    which can be deleted with `rm -rf ~/.local/share/nvim/`
+
+| `emmet_ls` | Emmet abbreviations |
+
+| `lua_ls` | Lua (for Neovim config) |* Can I keep my existing configuration in parallel to this config?
+
+
+
+---```  * Yes! You can use [NVIM_APPNAME](https://neovim.io/doc/user/starting.html#%24NVIM_APPNAME)`=nvim-NAME`
+
+
+
+## 🛠️ Troubleshooting1. Open a test file (*.test.ts, *.spec.ts)    to maintain multiple configurations. For example, you can install this
+
+
+
+### Copilot not working?2. <Space>tt  →  Run test under cursor    configuration in `~/.config/nvim-gabed` and create an alias:
+
+```vim
+
+:Copilot auth3. <Space>ts  →  Toggle test summary panel    ```
+
+:Copilot status
+
+```4. <Space>td  →  Debug test with breakpoints    alias nvim-gabed='NVIM_APPNAME="nvim-gabed" nvim'
+
+
+
+### LSP not starting?```    ```
+
+```vim
+
+:LspInfo    When you run Neovim using `nvim-gabed` alias it will use the alternative
+
+:Mason  " Check if servers are installed
+
+```Test adapters included:    config directory and the matching local directory
+
+
+
+### Debugger not starting?- **Jest** - `npm test`    `~/.local/share/nvim-gabed`. You can apply this approach to any Neovim
+
+```vim
+
+:Mason  " Ensure js-debug-adapter is installed- **Vitest** - Native support    distribution that you would like to try out.
+
+:lua require('dap').continue()  " Start debug manually
+
+```* How do I switch between AI models?
+
+
+
+### Plugin errors?---  * Press `<Space>am` in normal mode to see available models
+
+```vim
+
+:Lazy sync  * All AI features use GitHub Copilot by default
+
+:Lazy clean
+
+```## 🐛 Debugging Workflow  * You need an active Copilot subscription
+
+
+
+### Check everything* Where can I add my own plugins?
+
+```vim
+
+:checkhealth```  * Add them to `lua/custom/plugins/` directory
+
+```
 
 1. Open your TypeScript/JavaScript file  * Each file should return a table of plugin specs
 
+---
+
 2. <Space>db  →  Set breakpoint on current line  * They will be automatically loaded
+
+## 📚 Learning Resources
 
 3. <Space>dc  →  Start debugging* What if I want to "uninstall" this configuration:
 
-4. F10        →  Step over  * See [lazy.nvim uninstall](https://github.com/folke/lazy.nvim#-uninstalling) information
+1. **Built-in Tutorial**: Press `<Space>?` after opening Neovim
 
-5. F11        →  Step into* Why is the main `init.lua` a single file? Wouldn't it make sense to split it into multiple files?
+2. **Which-key**: Press `<Space>` and wait to see all options4. F10        →  Step over  * See [lazy.nvim uninstall](https://github.com/folke/lazy.nvim#-uninstalling) information
 
-6. F5         →  Continue  * This configuration is based on kickstart.nvim, which serves as a teaching tool and reference
+3. **Search keymaps**: `<Space>sk` to fuzzy find any keybinding
 
-```    configuration. The main purpose is to provide a readable foundation that someone can easily
+4. **Neovim help**: `:help <topic>`5. F11        →  Step into* Why is the main `init.lua` a single file? Wouldn't it make sense to split it into multiple files?
 
-    understand and modify. As you progress in learning Neovim and Lua, you might consider splitting 
 
-The debug UI shows:    `init.lua` into smaller parts. A fork of kickstart that does this while maintaining the 
+
+---6. F5         →  Continue  * This configuration is based on kickstart.nvim, which serves as a teaching tool and reference
+
+
+
+## 🤝 Contributing```    configuration. The main purpose is to provide a readable foundation that someone can easily
+
+
+
+1. Fork this repo    understand and modify. As you progress in learning Neovim and Lua, you might consider splitting 
+
+2. Create a feature branch
+
+3. Make your changesThe debug UI shows:    `init.lua` into smaller parts. A fork of kickstart that does this while maintaining the 
+
+4. Submit a PR
 
 - Variables and their values    same functionality is available here:
 
+Please keep the backend-focused philosophy in mind.
+
 - Call stack    * [kickstart-modular.nvim](https://github.com/dam9000/kickstart-modular.nvim)
+
+---
 
 - Breakpoints list  * This configuration includes additional plugins in `lua/custom/plugins/` for better organization.
 
+## 📄 License
+
 - REPL for evaluating expressions
+
+MIT - Use it, modify it, share it.
 
 ### Install Recipes
 
 ---
 
-Below you can find OS specific install instructions for Neovim and dependencies.
+---
 
-## 🌐 API Testing (Bruno/HTTP)
+<p align="center">
+
+  <strong>Happy coding! 🚀</strong><br>Below you can find OS specific install instructions for Neovim and dependencies.
+
+  <em>Press <code>&lt;Space&gt;?</code> to start the tutorial</em>
+
+</p>## 🌐 API Testing (Bruno/HTTP)
+
 
 After installing all the dependencies continue with the [Install nvim-config](#Install-nvim-config) step.
 
