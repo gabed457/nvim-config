@@ -11,6 +11,15 @@ return {
         typescript = { 'eslint_d' },
         javascriptreact = { 'eslint_d' },
         typescriptreact = { 'eslint_d' },
+        -- Infrastructure as Code
+        terraform = { 'tflint' },
+        dockerfile = { 'hadolint' },
+        yaml = { 'yamllint' },
+        -- Shell scripts
+        sh = { 'shellcheck' },
+        bash = { 'shellcheck' },
+        -- SQL
+        sql = { 'sqlfluff' },
       }
 
       -- To allow other plugins to add linters to require('lint').linters_by_ft,

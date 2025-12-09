@@ -81,6 +81,12 @@ Press <Space>? after installation to open the interactive tutorial
 | **📊 JSON** | Schema validation, jq-powered exploration |  - Full DAP debugging for Node.js and Chrome
 
 | **📜 Logs** | Syntax highlighting for .log files |
+| **☸️ Kubernetes** | kubectl.nvim for pod management, yaml-companion for K8s schemas, Helm support |
+| **🏗️ Terraform** | Full LSP, formatting, linting for infrastructure as code |
+| **📍 Navigation** | Harpoon for quick file access, Aerial for code outline |
+| **💾 Session** | Persistence.nvim for automatic session management |
+| **📊 Coverage** | nvim-coverage for test coverage visualization |
+| **📝 Markdown** | Live preview, table mode for TDDs/RFCs |
 
 ## ✨ Feature Overview  - Visual debugging with virtual text
 
@@ -348,7 +354,50 @@ brew install lazygit jq fd
 
 | `<Space>Da` | Add database connection |
 
+### Kubernetes (New!)
 
+| Keys | Action |
+|------|--------|
+| `<Space>Kk` | Open kubectl UI |
+| `<Space>Kp` | View Pods |
+| `<Space>Kd` | View Deployments |
+| `<Space>Ks` | View Services |
+| `<Space>Kl` | View Logs |
+| `<Space>Ke` | View Events |
+| `<Space>Ky` | Select YAML Schema |
+
+### Navigation (New!)
+
+| Keys | Action |
+|------|--------|
+| `<Space>ha` | Add file to Harpoon |
+| `<Space>hh` | Open Harpoon menu |
+| `<Space>1-5` | Jump to Harpoon file |
+| `<Space>co` | Code outline (Aerial) |
+| `<Space>uu` | Undo tree |
+
+### Session (New!)
+
+| Keys | Action |
+|------|--------|
+| `<Space>qs` | Restore session |
+| `<Space>ql` | Restore last session |
+| `<Space>qd` | Don't save session |
+
+### Coverage (New!)
+
+| Keys | Action |
+|------|--------|
+| `<Space>tC` | Toggle coverage |
+| `<Space>tc` | Coverage summary |
+| `<Space>tL` | Load coverage |
+
+### Markdown (New!)
+
+| Keys | Action |
+|------|--------|
+| `<Space>mp` | Markdown preview |
+| `<Space>mt` | Table mode |
 
 ### TODO Comments1. **Wait** for plugins to install (you'll see progress in the UI)#### Recommended Step
 
@@ -698,9 +747,21 @@ Configure environments in `lua/config/bruno-config.lua`.
 
 │       ├── backend.lua      # Database, Spectre, logs, dotenv
 
+│       ├── coverage.lua     # Test coverage visualization (NEW)
+
 │       ├── debug.lua        # VSCode-like debugger (DAP)### REST/Bruno API- `eslint` - ESLint integration
 
 │       ├── git.lua          # Git integration
+
+│       ├── kubernetes.lua   # kubectl.nvim, Helm, YAML schemas (NEW)
+
+│       ├── markdown.lua     # Markdown preview, table mode (NEW)
+
+│       ├── navigation.lua   # Harpoon, Aerial, marks, undotree (NEW)
+
+│       ├── session.lua      # Persistence.nvim session management (NEW)
+
+│       ├── terraform.lua    # Terraform/HCL support (NEW)
 
 │       ├── testing.lua      # Neotest (Jest, Vitest)- `jsonls` - JSON with schema validation
 

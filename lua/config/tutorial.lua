@@ -409,6 +409,8 @@ Full LSP support for:
   - Dockerfile
   - GitHub Actions (.yml)
   - Kubernetes manifests
+  - Terraform (.tf, .hcl)
+  - Helm charts
 
 ENVIRONMENT FILES
 .env files auto-loaded
@@ -425,6 +427,101 @@ for .log files with levels:
 QUICKFIX (bqf)
 Enhanced quickfix window
 with preview and filtering.
+]],
+  },
+  {
+    title = 'Kubernetes & Helm',
+    content = [[
+KUBERNETES (kubectl.nvim)
+<leader>Kk      Open kubectl UI
+<leader>Kp      View Pods
+<leader>Kd      View Deployments
+<leader>Ks      View Services
+<leader>Kn      View Nodes
+<leader>Kc      View ConfigMaps
+<leader>Ki      View Ingresses
+<leader>Kl      View Logs
+<leader>Ke      View Events
+<leader>KS      View Secrets
+<leader>Kj      View Jobs
+<leader>KC      View CronJobs
+
+YAML SCHEMA
+<leader>Ky      Select YAML schema
+
+Inside kubectl UI:
+  Enter         View details
+  d             Describe
+  l             View logs
+  p             Port forward
+  e             Exec into pod
+  /             Filter resources
+  ?             Show help
+
+Auto-refresh every 5 seconds.
+Context/namespace switching built-in.
+]],
+  },
+  {
+    title = 'Navigation & Harpoon',
+    content = [[
+HARPOON (Quick File Access)
+<leader>ha      Add file to Harpoon
+<leader>hh      Open Harpoon menu
+<leader>1       Jump to file 1
+<leader>2       Jump to file 2
+<leader>3       Jump to file 3
+<leader>4       Jump to file 4
+<leader>5       Jump to file 5
+
+CODE OUTLINE (Aerial)
+<leader>co      Toggle code outline
+<leader>cO      Outline navigation
+
+Shows functions, classes, methods
+in a side panel for quick jumping.
+
+MARKS
+m{a-z}          Set mark
+'{a-z}          Jump to mark
+dm{a-z}         Delete mark
+Signs shown in gutter.
+
+UNDO TREE
+<leader>uu      Toggle undo tree
+Visual history of all changes.
+]],
+  },
+  {
+    title = 'Session & Coverage',
+    content = [[
+SESSION MANAGEMENT
+<leader>qs      Restore session
+<leader>ql      Restore last session  
+<leader>qd      Don't save session
+
+Sessions auto-save on exit.
+Restores buffers, windows, tabs.
+Great for project switching.
+
+TEST COVERAGE
+<leader>tC      Toggle coverage
+<leader>tc      Coverage summary
+<leader>tL      Load coverage
+
+Shows coverage inline:
+  Green = covered lines
+  Red = uncovered lines
+
+Works with Jest/Vitest lcov output.
+Run tests with --coverage first.
+
+MARKDOWN PREVIEW
+<leader>mp      Toggle preview
+<leader>mt      Table mode
+
+Opens live preview in browser.
+Great for TDD/RFC documents.
 ]],
   },
   {
@@ -527,6 +624,7 @@ CODE
   <leader>ca      Code actions
   <leader>cr      Rename
   <leader>f       Format
+  <leader>co      Code outline
 
 GIT
   <leader>gg      LazyGit
@@ -534,12 +632,23 @@ GIT
   <leader>gD      Staged diff
   <leader>gU      Unstaged diff
 
+KUBERNETES
+  <leader>Kk      kubectl UI
+  <leader>Kp      Pods
+  <leader>Kl      Logs
+
+NAVIGATION
+  <leader>ha      Harpoon add
+  <leader>hh      Harpoon menu
+  <leader>1-5     Jump to file
+
+SESSION
+  <leader>qs      Restore session
+  <leader>ql      Last session
+
 DATABASE
   <leader>Dt      Toggle DB UI
   <leader>Da      Add connection
-
-JSON
-  <leader>jq      Explore JSON
 
 AI
   <leader>aa      AI Chat
@@ -547,12 +656,9 @@ AI
 
 TEST/DEBUG
   <leader>tt      Run test
+  <leader>tC      Coverage toggle
   <leader>dc      Debug start
   <leader>db      Breakpoint
-
-TODO
-  <leader>st      Search TODOs
-  ]t / [t         Next/prev TODO
 
 HELP
   <leader>?       This tutorial

@@ -12,4 +12,12 @@ return {
   { import = 'plugins.typescript' },
   { import = 'plugins.ui' },
   -- { import = 'plugins.indent_line' }, -- Uncomment to enable indent guides
+
+  -- Staff-level backend engineering plugins
+  { import = 'plugins.kubernetes' },
+  { import = 'plugins.terraform' },
+  { import = 'plugins.markdown' },
+  { import = 'plugins.navigation' },
+  { import = 'plugins.session' },
+  { import = 'plugins.coverage' },
 }

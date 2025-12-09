@@ -309,6 +309,11 @@ require('lazy').setup({
         { '<leader>t', group = 'Test/TODO', mode = { 'n' } },
         { '<leader>w', group = 'Window', mode = { 'n' } },
         { '<leader>x', group = 'Diagnostics', mode = { 'n' } },
+        -- Staff-level backend engineering groups
+        { '<leader>K', group = 'Kubernetes', mode = { 'n' } },
+        { '<leader>m', group = 'Markdown', mode = { 'n' } },
+        { '<leader>q', group = 'Session', mode = { 'n' } },
+        { '<leader>u', group = 'Utilities', mode = { 'n' } },
       },
     },
   },
@@ -712,6 +717,20 @@ require('lazy').setup({
 
         -- Docker Compose
         docker_compose_language_service = {},
+
+        -- Terraform (Infrastructure as Code)
+        terraformls = {
+          filetypes = { 'terraform', 'terraform-vars', 'tf' },
+        },
+
+        -- Helm charts
+        helm_ls = {},
+
+        -- SQL
+        sqlls = {},
+
+        -- Bash/Shell scripts
+        bashls = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -731,6 +750,24 @@ require('lazy').setup({
         'eslint_d', -- Fast ESLint daemon for linting
         'prettierd', -- Faster prettier daemon
         'js-debug-adapter', -- JavaScript debugger
+
+        -- Infrastructure as Code
+        'terraform-ls', -- Terraform language server
+        'tflint', -- Terraform linter
+        'hadolint', -- Dockerfile linter
+        'yamllint', -- YAML linter
+        'actionlint', -- GitHub Actions linter
+
+        -- SQL
+        'sqlfluff', -- SQL linter
+        'sql-formatter', -- SQL formatter
+
+        -- Shell
+        'shellcheck', -- Shell script linter
+        'shfmt', -- Shell script formatter
+
+        -- Documentation
+        'markdownlint', -- Markdown linter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -796,6 +833,14 @@ require('lazy').setup({
         markdown = { 'prettierd', 'prettier', stop_after_first = true },
         yaml = { 'prettierd', 'prettier', stop_after_first = true },
         graphql = { 'prettierd', 'prettier', stop_after_first = true },
+        -- Infrastructure as Code
+        terraform = { 'terraform_fmt' },
+        hcl = { 'terraform_fmt' },
+        -- SQL
+        sql = { 'sql-formatter' },
+        -- Shell scripts
+        sh = { 'shfmt' },
+        bash = { 'shfmt' },
       },
     },
   },
@@ -988,6 +1033,12 @@ require('lazy').setup({
         'css', 'scss', 'json', 'jsonc', 'yaml', 'toml',
         -- Other useful parsers
         'regex', 'graphql', 'prisma', 'http',
+        -- Infrastructure as Code
+        'sql', 'dockerfile', 'terraform', 'hcl', 'make',
+        -- Documentation
+        'mermaid',
+        -- Git
+        'gitcommit', 'gitignore', 'git_rebase',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
