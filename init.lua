@@ -1,94 +1,24 @@
 --[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
-What is Kickstart? Kickstart.nvim is *not* a distribution.
-
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
-
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving Kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
-
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
-
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
-
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know the Neovim basics, you can skip this step.)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua.
-
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
-
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite Neovim features.
-
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not exactly sure of what you're looking for.
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or Neovim features used in Kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help you understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your Neovim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
+  Backend Developer Neovim Configuration
+  Optimized for Node.js/TypeScript Staff+ Engineers
+  
+  Press <leader>? for interactive tutorial
+  
+  Key Features:
+  - Full TypeScript/Node.js LSP support
+  - AI coding assistance (Copilot + Chat + Inline Edit)
+  - Git integration with staged/unstaged diffs
+  - Bruno API collections for testing
+  - Professional debugging (DAP)
+  - TODO/FIXME comment tracking
 --]]
 
 -- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+-- Nerd Font support
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -178,16 +108,27 @@ vim.diagnostic.config {
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
--- Debugger keymaps
-vim.keymap.set('n', '<leader>dr', '<cmd>DapContinue<CR>')
--- Neo-tree keymap for file explorer
-vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { desc = 'Toggle file explorer' })
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
+
+-- Set highlight on search, but clear on pressing <Esc> in normal mode
+vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Debugger keymaps
+vim.keymap.set('n', '<leader>dr', '<cmd>DapContinue<CR>', { desc = '▶️  Run/Continue' })
+
+-- Neo-tree keymap for file explorer
+vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { desc = '📁 File Explorer' })
+
+-- Tutorial - Learn all the keybindings!
+vim.keymap.set('n', '<leader>?', function()
+  require('config.tutorial').open()
+end, { desc = '📚 Open Tutorial' })
+
 -- Diagnostic keymaps
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = '📋 Quickfix List' })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = '⬆️  Previous Diagnostic' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = '⬇️  Next Diagnostic' })
+vim.keymap.set('n', '<leader>xd', vim.diagnostic.open_float, { desc = '💬 Show Diagnostic' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -195,7 +136,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = '🚪 Exit Terminal Mode' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -207,10 +148,36 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = '⬅️  Left Window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = '➡️  Right Window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = '⬇️  Lower Window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = '⬆️  Upper Window' })
+
+-- Better window management
+vim.keymap.set('n', '<leader>wv', '<C-w>v', { desc = '⬜ Split Vertical' })
+vim.keymap.set('n', '<leader>wh', '<C-w>s', { desc = '⬛ Split Horizontal' })
+vim.keymap.set('n', '<leader>we', '<C-w>=', { desc = '⚖️  Equal Size' })
+vim.keymap.set('n', '<leader>wx', '<cmd>close<CR>', { desc = '❌ Close Window' })
+vim.keymap.set('n', '<leader>wo', '<C-w>o', { desc = '🎯 Close Others' })
+
+-- Better indenting
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+
+-- Move lines up and down
+vim.keymap.set('n', '<A-j>', '<cmd>m .+1<cr>==', { desc = '⬇️  Move Line Down' })
+vim.keymap.set('n', '<A-k>', '<cmd>m .-2<cr>==', { desc = '⬆️  Move Line Up' })
+vim.keymap.set('v', '<A-j>', ":m '>+1<cr>gv=gv", { desc = '⬇️  Move Selection Down' })
+vim.keymap.set('v', '<A-k>', ":m '<-2<cr>gv=gv", { desc = '⬆️  Move Selection Up' })
+
+-- Better paste
+vim.keymap.set('v', 'p', '"_dP', { desc = '📋 Paste Without Yank' })
+
+-- Save file
+vim.keymap.set({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = '💾 Save File' })
+
+-- Clear search with <esc>
+vim.keymap.set({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = '🧹 Clear Search' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -325,14 +292,23 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-        { '<leader>d', group = '[D]ocument' },
-        { '<leader>r', group = '[R]ename' },
-        { '<leader>s', group = '[S]earch' },
-        { '<leader>w', group = '[W]orkspace' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-        { '<leader>g', group = '[G]itHub Copilot', mode = { 'n', 'i' } },
+        { '<leader>?', desc = 'Tutorial' },
+        { '<leader>a', group = 'AI', mode = { 'n', 'v' } },
+        { '<leader>b', group = 'Buffers', mode = { 'n' } },
+        { '<leader>c', group = 'Code', mode = { 'n', 'x' } },
+        { '<leader>d', group = 'Debug', mode = { 'n' } },
+        { '<leader>D', group = 'Database', mode = { 'n' } },
+        { '<leader>f', group = 'Format', mode = { 'n' } },
+        { '<leader>g', group = 'Git', mode = { 'n', 'v' } },
+        { '<leader>h', group = 'Hunks', mode = { 'n', 'v' } },
+        { '<leader>j', group = 'JSON', mode = { 'n' } },
+        { '<leader>n', group = 'NPM', mode = { 'n' } },
+        { '<leader>r', group = 'REST/Bruno', mode = { 'n' } },
+        { '<leader>s', group = 'Search', mode = { 'n' } },
+        { '<leader>S', group = 'Spectre', mode = { 'n', 'v' } },
+        { '<leader>t', group = 'Test/TODO', mode = { 'n' } },
+        { '<leader>w', group = 'Window', mode = { 'n' } },
+        { '<leader>x', group = 'Diagnostics', mode = { 'n' } },
       },
     },
   },
@@ -414,16 +390,16 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '📖 Help' })
+      vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '⌨️  Keymaps' })
+      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '📄 Files' })
+      vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '🔭 Select Telescope' })
+      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '🔤 Current Word' })
+      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '🔎 Grep' })
+      vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '⚠️  Diagnostics' })
+      vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '🔄 Resume' })
+      vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '🕐 Recent Files' })
+      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '📑 Buffers' })
 
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
@@ -432,7 +408,7 @@ require('lazy').setup({
           winblend = 10,
           previewer = false,
         })
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      end, { desc = '🔍 Search in Buffer' })
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
@@ -441,12 +417,12 @@ require('lazy').setup({
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, { desc = '[S]earch [/] in Open Files' })
+      end, { desc = '🔎 Grep Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[S]earch [N]eovim files' })
+      end, { desc = '⚙️  Neovim Config' })
     end,
   },
 
@@ -472,6 +448,9 @@ require('lazy').setup({
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+
+      -- JSON schemas for better JSON support
+      'b0o/schemastore.nvim',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -526,39 +505,39 @@ require('lazy').setup({
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', require('telescope.builtin').lsp_definitions, '📍 Goto Definition')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('gr', require('telescope.builtin').lsp_references, '🔗 Goto References')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          map('gI', require('telescope.builtin').lsp_implementations, '⚡ Goto Implementation')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+          map('<leader>D', require('telescope.builtin').lsp_type_definitions, '🏷️  Type Definition')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+          map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '📄 Document Symbols')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '🔍 Workspace Symbols')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('<leader>rn', vim.lsp.buf.rename, '✏️  Rename')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+          map('<leader>ca', vim.lsp.buf.code_action, '💡 Code Action', { 'n', 'x' })
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          map('gD', vim.lsp.buf.declaration, '📋 Goto Declaration')
 
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
@@ -596,7 +575,7 @@ require('lazy').setup({
           if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
-            end, '[T]oggle Inlay [H]ints')
+            end, '💡 Toggle Inlay Hints')
           end
         end,
       })
@@ -618,23 +597,91 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
-        --
+        -- TypeScript/JavaScript - Essential for Node.js development
+        ts_ls = {
+          settings = {
+            typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+            javascript = {
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+          },
+        },
+
+        -- ESLint for linting
+        eslint = {
+          settings = {
+            workingDirectories = { mode = 'auto' },
+          },
+        },
+
+        -- JSON for package.json, tsconfig.json, etc.
+        jsonls = {
+          settings = {
+            json = {
+              schemas = require('schemastore').json.schemas(),
+              validate = { enable = true },
+            },
+          },
+        },
+
+        -- HTML
+        html = {
+          filetypes = { 'html', 'htmldjango', 'eruby', 'htmlangular' },
+        },
+
+        -- CSS
+        cssls = {
+          settings = {
+            css = {
+              validate = true,
+              lint = {
+                unknownAtRules = 'ignore',
+              },
+            },
+            scss = {
+              validate = true,
+              lint = {
+                unknownAtRules = 'ignore',
+              },
+            },
+            less = {
+              validate = true,
+              lint = {
+                unknownAtRules = 'ignore',
+              },
+            },
+          },
+        },
+
+        -- Tailwind CSS
+        tailwindcss = {
+          filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+        },
+
+        -- Emmet for HTML/JSX
+        emmet_ls = {
+          filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'svelte' },
+        },
 
         lua_ls = {
-          -- cmd = {...},
-          -- filetypes = { ...},
-          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
@@ -645,6 +692,26 @@ require('lazy').setup({
             },
           },
         },
+
+        -- YAML for CI/CD, k8s, docker-compose
+        yamlls = {
+          settings = {
+            yaml = {
+              schemas = require('schemastore').yaml.schemas(),
+              validate = true,
+              schemaStore = { enable = false, url = '' },
+              format = { enable = true },
+              hover = true,
+              completion = true,
+            },
+          },
+        },
+
+        -- Dockerfile
+        dockerls = {},
+
+        -- Docker Compose
+        docker_compose_language_service = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -659,9 +726,11 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-        'prettier', -- JavaScript/TypeScript formatter
+        'stylua', -- Lua formatter
+        'prettier', -- JavaScript/TypeScript/JSON/HTML/CSS formatter
         'eslint_d', -- Fast ESLint daemon for linting
+        'prettierd', -- Faster prettier daemon
+        'js-debug-adapter', -- JavaScript debugger
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -691,7 +760,7 @@ require('lazy').setup({
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = '✨ Format Buffer',
       },
     },
     opts = {
@@ -714,19 +783,19 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettier' },
-        typescript = { 'prettier' },
-        javascriptreact = { 'prettier' },
-        typescriptreact = { 'prettier' },
-        json = { 'prettier' },
-        html = { 'prettier' },
-        css = { 'prettier' },
-        scss = { 'prettier' },
-        markdown = { 'prettier' },
+        -- JavaScript/TypeScript formatting with Prettier
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'prettierd', 'prettier', stop_after_first = true },
+        jsonc = { 'prettierd', 'prettier', stop_after_first = true },
+        html = { 'prettierd', 'prettier', stop_after_first = true },
+        css = { 'prettierd', 'prettier', stop_after_first = true },
+        scss = { 'prettierd', 'prettier', stop_after_first = true },
+        markdown = { 'prettierd', 'prettier', stop_after_first = true },
+        yaml = { 'prettierd', 'prettier', stop_after_first = true },
+        graphql = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -911,7 +980,15 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 
+        'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc',
+        -- Node.js/TypeScript essentials (jsx/tsx are handled by javascript/tsx parsers)
+        'javascript', 'typescript', 'tsx', 'jsdoc',
+        -- Web development
+        'css', 'scss', 'json', 'jsonc', 'yaml', 'toml',
+        -- Other useful parsers
+        'regex', 'graphql', 'prisma', 'http',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -931,193 +1008,107 @@ require('lazy').setup({
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
 
-  -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
-
-  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-  --
-  --  Here are some example plugins that I've included in the Kickstart repository.
-  --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
-  require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
-  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-
+  -- ============================================================================
+  -- AI INTEGRATIONS - Multiple modes like VSCode (Agent, Ask, Edit)
+  -- ============================================================================
+  
+  -- Copilot.lua - Better than copilot.vim, required for other AI plugins
   {
-  "yetone/avante.nvim",
-  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-  -- ⚠️ must add this setting! ! !
-  build = vim.fn.has("win32") ~= 0
-      and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-      or "make",
-  event = "VeryLazy",
-  version = false, -- Never set this value to "*"! Never!
-  ---@module 'avante'
-  ---@type avante.Config
-  opts = {
-      provider = "copilot",
-      providers = {
-        copilot = {},
-      },
-   },
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "MunifTanjim/nui.nvim",
-    --- The below dependencies are optional,
-    "echasnovski/mini.pick", -- for file_selector provider mini.pick
-    "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-    "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-    "ibhagwan/fzf-lua", -- for file_selector provider fzf
-    "stevearc/dressing.nvim", -- for input provider dressing
-    "folke/snacks.nvim", -- for input provider snacks
-    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-    "zbirenbaum/copilot.lua", -- for providers='copilot'
-    {
-      -- support for image pasting
-      "HakonHarnes/img-clip.nvim",
-      event = "VeryLazy",
-      opts = {
-        -- recommended settings
-        default = {
-          embed_image_as_base64 = false,
-          prompt_for_file_name = false,
-          drag_and_drop = {
-            insert_mode = true,
-          },
-          -- required for Windows users
-          use_absolute_path = true,
-        },
-      },
-    },
-    {
-      -- Make sure to set this up properly if you have lazy=true
-      'MeanderingProgrammer/render-markdown.nvim',
-      opts = {
-        file_types = { "markdown", "Avante" },
-      },
-      ft = { "markdown", "Avante" },
-    },
-  },
-},
-
-  -- GitHub Copilot AI pair programmer
-  {
-    'github/copilot.vim',
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
     event = 'InsertEnter',
     config = function()
-      -- Disable default tab mapping to avoid conflicts with nvim-cmp
-      vim.g.copilot_no_tab_map = true
-      
-      -- Set up custom keymaps for Copilot
-      -- Accept suggestion (Insert mode)
-      vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
-        expr = true,
-        replace_keycodes = false,
-        desc = 'Accept Copilot suggestion'
-      })
-      
-      -- Dismiss suggestion (Insert mode)
-      vim.keymap.set('i', '<C-]>', '<Plug>(copilot-dismiss)', {
-        desc = 'Dismiss Copilot suggestion'
-      })
-      
-      -- Leader-based keymaps (work in both Normal and Insert modes)
-      vim.keymap.set({'n', 'i'}, '<leader>gc', '<Cmd>Copilot<CR>', {
-        desc = '[G]ithub [C]opilot panel'
-      })
-      
-      vim.keymap.set({'n', 'i'}, '<leader>gd', '<Cmd>Copilot disable<CR>', {
-        desc = '[G]ithub Copilot [D]isable'
-      })
-      
-      vim.keymap.set({'n', 'i'}, '<leader>ge', '<Cmd>Copilot enable<CR>', {
-        desc = '[G]ithub Copilot [E]nable'
-      })
-      
-      -- Additional Copilot settings
-      vim.g.copilot_filetypes = {
-        ['*'] = false,
-        javascript = true,
-        typescript = true,
-        javascriptreact = true,
-        typescriptreact = true,
-        lua = true,
-        python = true,
-        rust = true,
-        go = true,
-        java = true,
-        c = true,
-        cpp = true,
-        html = true,
-        css = true,
-        scss = true,
-        json = true,
-        yaml = true,
-        markdown = true,
+      require('copilot').setup {
+        panel = {
+          enabled = true,
+          auto_refresh = true,
+          keymap = {
+            jump_prev = '[[',
+            jump_next = ']]',
+            accept = '<CR>',
+            refresh = 'gr',
+            open = '<M-CR>',
+          },
+          layout = {
+            position = 'right',
+            ratio = 0.4,
+          },
+        },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = {
+            accept = '<C-l>',
+            accept_word = false,
+            accept_line = false,
+            next = '<C-]>',
+            prev = '<C-[>',
+            dismiss = '<C-e>',
+          },
+        },
+        filetypes = {
+          yaml = true,
+          markdown = true,
+          help = false,
+          gitcommit = true,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ['.'] = false,
+        },
+        copilot_node_command = 'node',
+        server_opts_overrides = {},
       }
     end,
   },
 
-  -- GitHub Copilot Chat - Full agent and chat support
+  -- CopilotChat - Agent mode, conversational AI
   {
     'CopilotC-Nvim/CopilotChat.nvim',
+    branch = 'canary',
     dependencies = {
-      'github/copilot.vim',
-      'nvim-lua/plenary.nvim',
+      { 'zbirenbaum/copilot.lua' },
+      { 'nvim-lua/plenary.nvim' },
     },
-    build = 'make tiktoken', -- Required for token management
+    build = 'make tiktoken',
     event = 'VeryLazy',
     opts = {
-      -- Configure the chat window
+      debug = false,
       window = {
-        layout = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
-        width = 0.5, -- fractional width of parent, or absolute width in columns when > 1
-        height = 0.5, -- fractional height of parent, or absolute height in rows when > 1
-        relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
-        border = 'rounded', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
-        row = nil, -- row position of the window, default is centered
-        col = nil, -- column position of the window, default is centered
-        title = 'Copilot Chat', -- title of chat window
-        footer = nil, -- footer of chat window
-        zindex = 1, -- determines if window is on top or below other floating windows
+        layout = 'vertical', -- 'vertical', 'horizontal', 'float'
+        width = 0.4,
+        height = 0.6,
+        relative = 'editor',
+        border = 'rounded',
+        title = '🤖 Copilot Chat',
+        footer = nil,
+        zindex = 1,
       },
-      -- Configure chat behavior
       question_header = '## User ',
       answer_header = '## Copilot ',
       error_header = '## Error ',
-      separator = ' ', -- separator to use in chat
-      show_folds = true, -- shows folds for sections in chat
-      show_help = true, -- shows help message as virtual lines when waiting for user input
-      auto_follow_cursor = true, -- auto-follow cursor in chat
-      auto_insert_mode = false, -- automatically enter insert mode when opening window and if auto follow cursor is enabled on new prompt
-      clear_chat_on_new_prompt = false, -- clears chat on every new prompt
-      context = nil, -- default context to use, 'buffers', 'buffer' or none (can be specified manually in prompt via @).
-      history_path = vim.fn.stdpath('data') .. '/copilotchat_history', -- default path to stored history
-      callback = nil, -- callback to use when ask response is received
-      -- default selection (visual or line) - will be set in config function
-      selection = nil,
-      -- default prompts - will be set in config function
-      prompts = {},
+      separator = '───',
+      show_folds = true,
+      show_help = true,
+      auto_follow_cursor = true,
+      auto_insert_mode = false,
+      clear_chat_on_new_prompt = false,
+      context = 'buffers', -- 'buffers', 'buffer' or nil
+      model = 'gpt-4',
+      temperature = 0.1,
     },
     config = function(_, opts)
-      -- Set up proper selection and prompts after plugin is loaded
-      opts.selection = function(source)
-        return require('CopilotChat.select').visual(source) or require('CopilotChat.select').line(source)
-      end
-      
+      local chat = require 'CopilotChat'
+      local select = require 'CopilotChat.select'
+
       opts.prompts = {
         Explain = {
           prompt = '/COPILOT_EXPLAIN Write an explanation for the active selection as paragraphs of text.',
         },
         Review = {
           prompt = '/COPILOT_REVIEW Review the selected code.',
-          callback = function(response, source)
-            -- see config.lua for implementation
-          end,
         },
         Fix = {
           prompt = '/COPILOT_GENERATE There is a problem in this code. Rewrite the code to show it with the bug fixed.',
@@ -1133,85 +1124,159 @@ require('lazy').setup({
         },
         FixDiagnostic = {
           prompt = 'Please assist with the following diagnostic issue in file:',
-          selection = require('CopilotChat.select').diagnostics,
+          selection = select.diagnostics,
         },
         Commit = {
           prompt = 'Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.',
-          selection = require('CopilotChat.select').gitdiff,
+          selection = select.gitdiff,
         },
         CommitStaged = {
           prompt = 'Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit.',
           selection = function(source)
-            return require('CopilotChat.select').gitdiff(source, true)
+            return select.gitdiff(source, true)
           end,
         },
       }
-      
-      require('CopilotChat').setup(opts)
-      
-      -- Setup keymaps for CopilotChat
-      vim.keymap.set({'n', 'v'}, '<leader>gct', '<cmd>CopilotChatToggle<cr>', {
-        desc = '[G]ithub [C]opilot Chat [T]oggle'
-      })
-      
-      vim.keymap.set({'n', 'v'}, '<leader>gce', '<cmd>CopilotChatExplain<cr>', {
-        desc = '[G]ithub [C]opilot Chat [E]xplain'
-      })
-      
-      vim.keymap.set({'n', 'v'}, '<leader>gcr', '<cmd>CopilotChatReview<cr>', {
-        desc = '[G]ithub [C]opilot Chat [R]eview'
-      })
-      
-      vim.keymap.set({'n', 'v'}, '<leader>gcf', '<cmd>CopilotChatFix<cr>', {
-        desc = '[G]ithub [C]opilot Chat [F]ix'
-      })
-      
-      vim.keymap.set({'n', 'v'}, '<leader>gco', '<cmd>CopilotChatOptimize<cr>', {
-        desc = '[G]ithub [C]opilot Chat [O]ptimize'
-      })
-      
-      vim.keymap.set({'n', 'v'}, '<leader>gcd', '<cmd>CopilotChatDocs<cr>', {
-        desc = '[G]ithub [C]opilot Chat [D]ocs'
-      })
-      
-      vim.keymap.set({'n', 'v'}, '<leader>gcts', '<cmd>CopilotChatTests<cr>', {
-        desc = '[G]ithub [C]opilot Chat [T]e[s]ts'
-      })
-      
-      vim.keymap.set('n', '<leader>gcm', '<cmd>CopilotChatModels<cr>', {
-        desc = '[G]ithub [C]opilot Chat [M]odels'
-      })
-      
-      vim.keymap.set('n', '<leader>gca', '<cmd>CopilotChatAgents<cr>', {
-        desc = '[G]ithub [C]opilot Chat [A]gents'
-      })
-      
-      vim.keymap.set('n', '<leader>gcc', '<cmd>CopilotChatCommit<cr>', {
-        desc = '[G]ithub [C]opilot Chat [C]ommit message'
-      })
-      
-      vim.keymap.set('n', '<leader>gcx', '<cmd>CopilotChatFixDiagnostic<cr>', {
-        desc = '[G]ithub [C]opilot Chat Fi[x] Diagnostic'
-      })
-      
-      -- Quick chat with input
-      vim.keymap.set({'n', 'v'}, '<leader>gcq', function()
-        local input = vim.fn.input('Quick Chat: ')
+
+      chat.setup(opts)
+
+      -- Keymaps for CopilotChat - Agent Mode
+      vim.keymap.set({ 'n', 'v' }, '<leader>aa', '<cmd>CopilotChatToggle<cr>', { desc = '💬 Agent Chat' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>ae', '<cmd>CopilotChatExplain<cr>', { desc = '📖 Explain Code' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>ar', '<cmd>CopilotChatReview<cr>', { desc = '🔍 Review Code' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>af', '<cmd>CopilotChatFix<cr>', { desc = '🔧 Fix Issues' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>ao', '<cmd>CopilotChatOptimize<cr>', { desc = '⚡ Optimize' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>ad', '<cmd>CopilotChatDocs<cr>', { desc = '📝 Generate Docs' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>at', '<cmd>CopilotChatTests<cr>', { desc = '🧪 Generate Tests' })
+      vim.keymap.set('n', '<leader>am', '<cmd>CopilotChatModels<cr>', { desc = '🔄 Switch Models' })
+      vim.keymap.set('n', '<leader>ac', '<cmd>CopilotChatCommit<cr>', { desc = '💾 Commit Message' })
+      vim.keymap.set('n', '<leader>ax', '<cmd>CopilotChatFixDiagnostic<cr>', { desc = '🩹 Fix Diagnostic' })
+
+      -- Quick chat with input - Ask Mode
+      vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
+        local input = vim.fn.input 'Quick Chat: '
         if input ~= '' then
-          require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
+          chat.ask(input, { selection = select.buffer })
         end
-      end, {
-        desc = '[G]ithub [C]opilot Chat [Q]uick chat'
-      })
+      end, { desc = '❓ Quick Ask' })
+
+      -- Reset chat
+      vim.keymap.set('n', '<leader>as', '<cmd>CopilotChatReset<cr>', { desc = '🔄 Reset Chat' })
     end,
   },
 
-  -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
+  -- Avante.nvim - Edit mode, inline AI assistance (like Cursor/Windsurf)
+  {
+    'yetone/avante.nvim',
+    event = 'VeryLazy',
+    lazy = false,
+    version = false,
+    build = 'make',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'stevearc/dressing.nvim',
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'zbirenbaum/copilot.lua',
+      {
+        'HakonHarnes/img-clip.nvim',
+        event = 'VeryLazy',
+        opts = {
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { 'markdown', 'Avante' },
+        },
+        ft = { 'markdown', 'Avante' },
+      },
+    },
+    opts = {
+      provider = 'copilot',
+      auto_suggestions_provider = 'copilot',
+      behaviour = {
+        auto_suggestions = true,
+        auto_set_highlight_group = true,
+        auto_set_keymaps = true,
+        auto_apply_diff_after_generation = false,
+        support_paste_from_clipboard = true,
+      },
+      mappings = {
+        diff = {
+          ours = 'co',
+          theirs = 'ct',
+          all_theirs = 'ca',
+          both = 'cb',
+          cursor = 'cc',
+          next = ']x',
+          prev = '[x',
+        },
+        suggestion = {
+          accept = '<C-l>',
+          next = '<C-]>',
+          prev = '<C-[>',
+          dismiss = '<C-e>',
+        },
+        jump = {
+          next = ']]',
+          prev = '[[',
+        },
+        submit = {
+          normal = '<CR>',
+          insert = '<C-s>',
+        },
+      },
+      hints = { enabled = true },
+      windows = {
+        position = 'right',
+        wrap = true,
+        width = 30,
+        sidebar_header = {
+          align = 'center',
+          rounded = true,
+        },
+      },
+      highlights = {
+        diff = {
+          current = 'DiffText',
+          incoming = 'DiffAdd',
+        },
+      },
+      diff = {
+        autojump = true,
+        list_opener = 'copen',
+      },
+    },
+    config = function(_, opts)
+      require('avante').setup(opts)
+      
+      -- Keymaps for Avante - Edit Mode
+      vim.keymap.set({ 'n', 'v' }, '<leader>ai', '<cmd>AvanteAsk<cr>', { desc = '✏️  Inline Edit' })
+      vim.keymap.set('n', '<leader>aE', '<cmd>AvanteEdit<cr>', { desc = '📝 Edit Mode' })
+      vim.keymap.set('n', '<leader>aR', '<cmd>AvanteRefresh<cr>', { desc = '🔄 Refresh' })
+      vim.keymap.set('n', '<leader>aT', '<cmd>AvanteToggle<cr>', { desc = '🎯 Toggle Panel' })
+    end,
+  },
+
+  -- ============================================================================
+  -- END AI INTEGRATIONS
+  -- ============================================================================
+
+
+  -- NOTE: The import below automatically loads all plugins from `lua/plugins/`
   --    This is the easiest way to modularize your config.
-  --
-  --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -1236,19 +1301,3 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2
-
--- Function to load all Lua files from the plugins directory
-local function load_plugins_from_dir()
-  local plugins_dir = vim.fn.stdpath 'config' .. '/lua/plugins/'
-  local files = vim.fn.globpath(plugins_dir, '*.lua', false, true)
-
-  for _, file in ipairs(files) do
-    local plugin = file:match '^.+/(.+)%.lua$'
-    if plugin then
-      require('plugins.' .. plugin)
-    end
-  end
-end
-
--- Call the function to load plugins
-load_plugins_from_dir()
